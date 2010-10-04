@@ -1,0 +1,119 @@
+<!-- TMPL_INCLUDE NAME="doc-head-open.inc" -->
+<title>Koha &rsaquo; Agrovoc Search</title>
+<!-- TMPL_INCLUDE NAME="greybox.inc" -->
+<!-- TMPL_INCLUDE NAME="doc-head-close.inc" -->
+<script type="text/javascript" src="<!-- TMPL_VAR NAME="themelang" -->/js/agrovoc.js"></script>
+   <style type="text/css">
+   #custom-doc { width:53em;*width:51.72em;min-width:689px; margin:auto; text-align:left; }
+   </style>
+</head>
+<body>
+<div id="bd">
+    <div id="yui-main">
+        <div class="yui-b">
+            <div class="yui-g">
+                <h1>Agrovoc search</h1>
+                <form name="agrovoc-search" method="get" action="search.pl">
+                    <input type="hidden" name="op" value="do_simple_search" />
+                    <fieldset class="rows">
+                    <ol>
+                        <li>
+                        <label for="searchmode">Search</label>
+                        <select name="searchmode" id="searchmode">
+                            <option value="starting">starting with</option> 
+                            <option value="containing">containing</option> 
+                            <option value="end with">end with</option> 
+                            <option value="exact">exact</option> 
+                        </select> 
+                        <input type="text" name="searchstring" value="<!-- TMPL_VAR ESCAPE='HTML' name='searchstring' -->" />
+                        </li>
+                        <li>
+                        <label for="lang_restrict">Restrict Results to English</label>
+                        <input type="checkbox" name="lang_restrict" id="lang_restrict" checked="1" />
+                        </li> 
+                     </ol>
+                     </fieldset>
+                     <fieldset class="action">
+                     <input type="submit" value="Perform Search" />
+                     <a class="cancel close" href="#">Cancel</a>
+                     </fieldset>
+                </form>
+            </div>
+<!-- TMPL_IF NAME='ss_results_mode' -->
+            <div id="ss_results">
+                 <ul>
+<!-- TMPL_LOOP NAME="term_array" -->
+                    <li> <!-- TMPL_VAR NAME="matchedTerm" -->
+                        (<a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->"><!-- TMPL_VAR NAME="termcode"--></a>)
+                    </li>
+<!-- /TMPL_LOOP -->
+                </ul>
+            </div>
+<!-- /TMPL_IF -->
+<!-- TMPL_IF NAME="display_term_details" -->
+            <div id="term_details" class="yui-g">
+                        <p><!-- TMPL_VAR NAME="termcode" -->: <strong><!-- TMPL_VAR NAME="labels" --></strong></p>
+<!-- TMPL_IF NAME="showuf" -->
+Used for:
+                        <ul>
+<!-- TMPL_LOOP NAME="UF" -->
+                            <li>
+<!-- TMPL_VAR NAME="label" --> <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->"><!-- TMPL_VAR NAME="termcode"--></a>
+                            </li>
+<!-- /TMPL_LOOP -->
+                        </ul>
+<!-- /TMPL_IF -->
+
+<p></p>
+Use:
+<ul>
+<!-- TMPL_LOOP NAME="USE" -->
+    <li>
+    <!-- TMPL_VAR NAME="label" --> 
+    <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->"><!-- TMPL_VAR NAME="termcode"--></a>
+    </li>
+<!-- /TMPL_LOOP -->
+</ul>
+<p></p>
+Broader Terms:
+<ul>
+<!-- TMPL_LOOP NAME="BT" -->
+<li>
+    <!-- TMPL_VAR NAME="label" -->
+    <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->"><!-- TMPL_VAR NAME="termcode"--></a>
+</li> 
+<!-- /TMPL_LOOP -->
+</ul>
+
+<p></p>
+Narrower Terms:
+<ul>
+<!-- TMPL_LOOP NAME="NT" -->
+<li>
+    <!-- TMPL_VAR NAME="label" -->
+    <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->"><!-- TMPL_VAR NAME="termcode"--></a>
+</li> 
+<!-- /TMPL_LOOP -->
+</ul>
+<p></p>
+Related terms:
+<ul>
+<!-- TMPL_LOOP NAME="RT" -->
+<li>
+    <!-- TMPL_VAR NAME="label" -->
+    <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->"><!-- TMPL_VAR NAME="termcode"--></a>
+</li>
+<!-- /TMPL_LOOP -->
+</ul>
+
+<p></p>
+<p>Definitions:</p>
+<p> <!-- TMPL_VAR NAME="DEF" --></p>
+                    </div>
+<!-- /TMPL_IF -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- TMPL_INCLUDE NAME="popup-bottom.inc" -->

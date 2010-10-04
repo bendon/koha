@@ -100,6 +100,12 @@ function _UNIMARCFieldDoc(field,fieldnumber) {
     } else {
         window.open("http://archive.ifla.org/VI/3/p1996-1/uni9.htm");
     }
+/**
+ * this function to open a popup to agrovoc
+ */
+function PopupAgrovoc() {
+    window.open("http://aims.fao.org/website/Search-AGROVOC","Agrovoc",'width=740,height=450,location=yes,toolbar=no,scrollbars=yes,resize=yes');
+    //window.open("/cgi-bin/koha/agrovoc/search.pl","Agrovoc",'width=740,height=450,location=yes,toolbar=no,scrollbars=yes,resize=yes');
 }
 
 /**
@@ -689,6 +695,7 @@ function unHideSubfield(index,labelindex) { // FIXME :: is it used ?
 	 $(document).ready(function() {
 		$("#z3950searchc").empty();
         $("#savebutton").empty();
+//        $("#agrovocsearchc").empty();
 	    yuiToolbar();
 	 });
 
@@ -748,6 +755,9 @@ function unHideSubfield(index,labelindex) { // FIXME :: is it used ?
 					        <!-- /TMPL_LOOP -->
 			</select> 
 <input type="hidden" name="op" value="addbiblio" /></li>
+<!--
+            <li id="agrovocsearchc"><input type="button" id="agrovoc" value="Search Agrovoc" onclick="PopupAgrovoc(); return false;"/></li>
+-->
 		</ul>
 </div>
 

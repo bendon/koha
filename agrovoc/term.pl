@@ -109,7 +109,7 @@ sub retrieve_concept {
         foreach ( @{ $concept_hash->{$arr_label} } ) {
             my $tc = $_;
             my $term_label = getTermByLanguage( $tc, $language );
-            if ($label) {
+            if ($term_label) {
                 push @{$tmp_arr},
                   { termcode => $tc,
                     label    => $term_label,

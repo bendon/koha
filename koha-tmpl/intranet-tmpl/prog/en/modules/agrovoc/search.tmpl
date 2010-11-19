@@ -70,6 +70,9 @@
             <h2>Entry for Term</h2>
                         <p><!-- TMPL_VAR NAME="termcode" -->: <strong><!-- TMPL_VAR NAME="labels" --></strong></p>
 <!-- Show term in Spanish/French -->
+<!-- TMPL_LOOP NAME="ALTLANG" -->
+See in <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='langcode' -->"><!-- TMPL_VAR NAME="langname" --></a>
+<!-- /TMPL_LOOP -->
 <!-- TMPL_IF NAME="showuf" -->
 Used for:
                         <ul>

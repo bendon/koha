@@ -44,13 +44,14 @@ my $lang = $q->param('lang');
 $lang ||= 'EN';
 
 my $concept = retrieve_concept( $q->param('termcode'), $lang );
-my $label    = join ' -- ', @{ $concept->{labels} };
-my $show_uf  = @{ $concept->{UF} };
-my $show_use = @{ $concept->{USE} };
-my $show_bt  = @{ $concept->{BT} };
-my $show_nt  = @{ $concept->{NT} };
-my $show_rt  = @{ $concept->{RT} };
-my $show_def = length $concept->{Definitions};
+my $label = join ' -- ', @{ $concept->{labels} };
+
+#my $show_uf  = @{ $concept->{UF} };
+#my $show_use = @{ $concept->{USE} };
+#my $show_bt  = @{ $concept->{BT} };
+#my $show_nt  = @{ $concept->{NT} };
+#my $show_rt  = @{ $concept->{RT} };
+#my $show_def = length $concept->{Definitions};
 $template->param(
     display_term_details => 1,
     termcode             => $concept->{termcode},
@@ -61,6 +62,7 @@ $template->param(
     NT                   => $concept->{NT},
     RT                   => $concept->{RT},
     DEF                  => $concept->{Definitions},
+    ALTLANG              => $concept->{other_lang},
 );
 
 output_html_with_http_headers( $q, $cookie, $template->output );
@@ -73,6 +75,11 @@ sub retrieve_concept {
     } else {
         return;
     }
+    my %lang_map = (
+        EN => 'English',
+        FR => 'French',
+        ES => 'Spanish',
+    );
     my @concept_array = getConceptInfoByTermcode($termcode);
 
     #foreach (@concept_array) {
@@ -81,6 +88,7 @@ sub retrieve_concept {
     my $concept_hash = {};
     $concept_hash->{termcode} = shift @concept_array;
     $concept_hash->{termcode} =~ s/\D//g;    # remove surrounding [ ]
+    my $other_avail_lang = {};
 
     my $labels  = shift @concept_array;
     my $arr_ref = [];
@@ -92,15 +100,27 @@ sub retrieve_concept {
             my $l_lang = shift @l_arr;
             if ( $language eq $l_lang ) {
                 push @{$arr_ref}, $term;
+                next;
+            }
+            if ( exists $lang_map{$l_lang} ) {
+                $other_avail_lang->{$l_lang} = $lang_map{$l_lang};
             }
         }
     }
-    $concept_hash->{labels} = $arr_ref;
+    $concept_hash->{labels}     = $arr_ref;
+    $concept_hash->{other_lang} = [];
+    for my $code ( sort keys %{$other_avail_lang} ) {
+        push @{ $concept_hash->{other_lang} },
+          { langcode => $code,
+            langname => $other_avail_lang->{$code},
+          };
+    }
     for my $element (@concept_array) {
         my @arr         = _string2array($element);
         my $array_label = shift @arr;
         $concept_hash->{$array_label} = \@arr;
     }
+
     for my $arr_label (qw( UF USE BT NT RT )) {
         my $tmp_arr = [];   # cannot do this in place as we need to remove terms
                             # which lack a label in the interface language

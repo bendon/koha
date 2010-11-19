@@ -41,7 +41,6 @@ my ( $template, $loggedinuser, $cookie ) = get_template_and_user(
     }
 );
 my $lang = $q->param('lang');
-
 $lang ||= 'EN';
 
 my $concept = retrieve_concept( $q->param('termcode'), $lang );
@@ -62,7 +61,6 @@ $template->param(
     NT                   => $concept->{NT},
     RT                   => $concept->{RT},
     DEF                  => $concept->{Definitions},
-    lang                 => $lang,
 );
 
 output_html_with_http_headers( $q, $cookie, $template->output );
@@ -92,7 +90,7 @@ sub retrieve_concept {
         while (@l_arr) {
             my $term   = shift @l_arr;
             my $l_lang = shift @l_arr;
-            if ( $l_lang eq $language ) {
+            if ( $language eq $l_lang ) {
                 push @{$arr_ref}, $term;
             }
         }
@@ -113,6 +111,7 @@ sub retrieve_concept {
                 push @{$tmp_arr},
                   { termcode => $tc,
                     label    => $term_label,
+                    language => $language,
                   };
             }
         }
@@ -120,6 +119,9 @@ sub retrieve_concept {
     }
     $concept_hash->{Definitions} = getDefinitions( $termcode, $language );
     $concept_hash->{Definitions} =~ s/^\s*//;
+    if ( $concept_hash->{Definitions} eq q{[Scope Note:]} ) {
+        $concept_hash->{Definitions} = q{};
+    }
 
     return $concept_hash;
 }
@@ -129,4 +131,19 @@ sub _string2array {
     $string =~ s/^\[//;
     $string =~ s/\]$//;
     return split /,\s*/, $string;
+}
+
+sub search_languages {
+    my $cgi_query = shift;
+    my $lang_hash = {};
+    if ( $cgi_query->param('lang_english') ) {
+        $template->param( lang_english => 'EN' );
+    }
+    if ( $cgi_query->param('lang_french') ) {
+        $template->param( lang_french => 'FR' );
+    }
+    if ( $cgi_query->param('lang_spanish') ) {
+        $template->param( lang_spanish => 'ES' );
+    }
+    return;
 }

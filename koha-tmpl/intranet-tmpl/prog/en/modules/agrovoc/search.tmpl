@@ -28,8 +28,22 @@
                         <input type="text" name="searchstring" value="<!-- TMPL_VAR ESCAPE='HTML' name='searchstring' -->" />
                         </li>
                         <li>
-                        <label for="lang_restrict">Restrict Results to English</label>
-                        <input type="checkbox" name="lang_restrict" id="lang_restrict" checked="1" />
+                        <label for="lang_english">Languages To Return</label>
+                        <!-- TMPL_IF NAME="lang_english" -->
+                        English: <input type="checkbox" name="lang_english" id="lang_english" value='EN' checked="1" />
+                        <!-- TMPL_ELSE -->
+                        English: <input type="checkbox" name="lang_english" id="lang_english" value='EN'  />
+                        <!-- /TMPL_IF -->
+                        <!-- TMPL_IF NAME="lang_french" -->
+                        French: <input type="checkbox" name="lang_french" id="lang_french" value='FR' checked="1"/>
+                        <!-- TMPL_ELSE -->
+                        French: <input type="checkbox" name="lang_french" id="lang_french" value='FR' />
+                        <!-- /TMPL_IF -->
+                        <!-- TMPL_IF NAME="lang_spanish" -->
+                        Spanish: <input type="checkbox" name="lang_spanish" id="lang_spanish" value='ES' checked="1"  />
+                        <!-- TMPL_ELSE -->
+                        Spanish: <input type="checkbox" name="lang_spanish" id="lang_spanish" value='ES'  />
+                        <!-- /TMPL_IF -->
                         </li> 
                      </ol>
                      </fieldset>
@@ -41,10 +55,11 @@
             </div>
 <!-- TMPL_IF NAME='ss_results_mode' -->
             <div id="ss_results">
+            <h2>Search Results</h2>
                  <ul>
 <!-- TMPL_LOOP NAME="term_array" -->
-                    <li> <!-- TMPL_VAR NAME="matchedTerm" -->
-                        (<a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->"><!-- TMPL_VAR NAME="termcode"--></a>)
+                    <li> <!-- TMPL_VAR NAME="matchedTerm" --> (<!--TMPL_VAR NAME="language" -->) 
+                        (<a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='language' -->"><!-- TMPL_VAR NAME="termcode"--></a>)
                     </li>
 <!-- /TMPL_LOOP -->
                 </ul>
@@ -52,13 +67,15 @@
 <!-- /TMPL_IF -->
 <!-- TMPL_IF NAME="display_term_details" -->
             <div id="term_details" class="yui-g">
+            <h2>Entry for Term</h2>
                         <p><!-- TMPL_VAR NAME="termcode" -->: <strong><!-- TMPL_VAR NAME="labels" --></strong></p>
+<!-- Show term in Spanish/French -->
 <!-- TMPL_IF NAME="showuf" -->
 Used for:
                         <ul>
 <!-- TMPL_LOOP NAME="UF" -->
                             <li>
-<!-- TMPL_VAR NAME="label" --> <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->"><!-- TMPL_VAR NAME="termcode"--></a>
+<!-- TMPL_VAR NAME="label" --> <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='language' -->"><!-- TMPL_VAR NAME="termcode"--></a>
                             </li>
 <!-- /TMPL_LOOP -->
                         </ul>
@@ -70,7 +87,7 @@ Use:
 <!-- TMPL_LOOP NAME="USE" -->
     <li>
     <!-- TMPL_VAR NAME="label" --> 
-    <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->"><!-- TMPL_VAR NAME="termcode"--></a>
+    <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='language' -->"><!-- TMPL_VAR NAME="termcode"--></a>
     </li>
 <!-- /TMPL_LOOP -->
 </ul>
@@ -80,7 +97,7 @@ Broader Terms:
 <!-- TMPL_LOOP NAME="BT" -->
 <li>
     <!-- TMPL_VAR NAME="label" -->
-    <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->"><!-- TMPL_VAR NAME="termcode"--></a>
+    <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='language' -->"><!-- TMPL_VAR NAME="termcode"--></a>
 </li> 
 <!-- /TMPL_LOOP -->
 </ul>
@@ -91,7 +108,7 @@ Narrower Terms:
 <!-- TMPL_LOOP NAME="NT" -->
 <li>
     <!-- TMPL_VAR NAME="label" -->
-    <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->"><!-- TMPL_VAR NAME="termcode"--></a>
+    <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='language' -->"><!-- TMPL_VAR NAME="termcode"--></a>
 </li> 
 <!-- /TMPL_LOOP -->
 </ul>
@@ -101,7 +118,7 @@ Related terms:
 <!-- TMPL_LOOP NAME="RT" -->
 <li>
     <!-- TMPL_VAR NAME="label" -->
-    <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->"><!-- TMPL_VAR NAME="termcode"--></a>
+    <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='language' -->"><!-- TMPL_VAR NAME="termcode"--></a>
 </li>
 <!-- /TMPL_LOOP -->
 </ul>

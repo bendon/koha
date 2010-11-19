@@ -45,21 +45,28 @@ my $op = $q->param('op');
 if ($op) {
     if ( $op eq 'do_simple_search' ) {
         my $search_params = {};
-        $search_params->{searchmode}    = $q->param('searchmode');
-        $search_params->{searchstring}  = $q->param('searchstring');
-        $search_params->{lang_restrict} = $q->param('lang_restrict');
+        $search_params->{searchmode}   = $q->param('searchmode');
+        $search_params->{searchstring} = $q->param('searchstring');
+        $search_params->{languages}    = get_set_languages($q);
         my $arr_ref = call_simple_search($search_params);
+
         $template->param(
             term_array      => $arr_ref,
             ss_results_mode => 1,
         );
     }
 
+} else {
+    get_set_languages($q);
 }
 output_html_with_http_headers( $q, $cookie, $template->output );
 
 sub call_simple_search {
     my $sp = shift;
+    my %langs;
+    foreach ( @{ $sp->{languages} } ) {
+        $langs{$_} = 1;
+    }
 
     my $rs = simpleSearchByMode2( $sp->{searchstring}, $sp->{searchmode}, q{} );
     my $array_ref = [];
@@ -76,7 +83,7 @@ sub call_simple_search {
             if ( $termcode eq 'NumberOfResults' ) {
                 last;
             }
-            if ( $sp->{lang_restrict} && $language ne 'EN' ) {
+            if ( !exists $langs{$language} ) {
                 next;
             }
             push @{$array_ref},
@@ -87,4 +94,26 @@ sub call_simple_search {
         }
     }
     return $array_ref;
+}
+
+sub get_set_languages {
+    my $cgi_query = shift;
+    my $lang_arr  = [];
+    if ( $cgi_query->param('lang_english') ) {
+        push @{$lang_arr}, 'EN';
+        $template->param( lang_english => 'EN' );
+    }
+    if ( $cgi_query->param('lang_french') ) {
+        push @{$lang_arr}, 'FR';
+        $template->param( lang_french => 'FR' );
+    }
+    if ( $cgi_query->param('lang_spanish') ) {
+        push @{$lang_arr}, 'ES';
+        $template->param( lang_spanish => 'ES' );
+    }
+    if ( @{$lang_arr} == 0 ) {
+        push @{$lang_arr}, 'EN';
+        $template->param( lang_english => 'EN' );
+    }
+    return $lang_arr;
 }

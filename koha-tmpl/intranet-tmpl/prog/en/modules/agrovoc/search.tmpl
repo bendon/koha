@@ -95,6 +95,16 @@ Use:
 <!-- /TMPL_LOOP -->
 </ul>
 <p></p>
+Use For:
+<ul>
+<!-- TMPL_LOOP NAME="UF" -->
+    <li>
+    <!-- TMPL_VAR NAME="label" --> 
+    <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='language' -->"><!-- TMPL_VAR NAME="termcode"--></a>
+    </li>
+<!-- /TMPL_LOOP -->
+</ul>
+<p></p>
 Broader Terms:
 <ul>
 <!-- TMPL_LOOP NAME="BT" -->

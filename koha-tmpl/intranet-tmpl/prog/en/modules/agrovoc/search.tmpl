@@ -2,79 +2,110 @@
 <title>Koha &rsaquo; Agrovoc Search</title>
 <!-- TMPL_INCLUDE NAME="greybox.inc" -->
 <!-- TMPL_INCLUDE NAME="doc-head-close.inc" -->
+<link rel="stylesheet" type="text/css" href="<!-- TMPL_VAR NAME="themelang"-->/css/agrovoc.css" />
+<style type="text/css">
+    div#searchPane {
+        float: left;
+        width: 45%;
+    }
+
+    input#selectorField {
+        width: 90%;
+    }
+
+    div#searchResultsPane {
+        float: left;
+        width: 45%
+    }
+    
+    div#termPane {
+        float: right;
+        width: 53%;
+    }
+
+    div#selectPane {
+        clear: both;
+    }
+</style>
 <script type="text/javascript" src="<!-- TMPL_VAR NAME="themelang" -->/js/agrovoc.js"></script>
    <style type="text/css">
    #custom-doc { width:53em;*width:51.72em;min-width:689px; margin:auto; text-align:left; }
+#ss-results { border: 2px inset;
+    height: 400px;
+    overflow: auto;
+    width:500px;
+      z-index: 500;
+   #term_details { float: right; width: 23.3333em; }
+    
    </style>
+<script type="text/javascript">
+//<![CDATA[
+$(function() {
+
+});
+//]]
+</script>
 </head>
 <body>
-<div id="bd">
-    <div id="yui-main">
-        <div class="yui-b">
-            <div class="yui-g">
-                <h1>Agrovoc search</h1>
-                <form name="agrovoc-search" method="get" action="search.pl">
-                    <input type="hidden" name="op" value="do_simple_search" />
-                    <fieldset class="rows">
-                    <ol>
-                        <li>
-                        <label for="searchmode">Search</label>
-                        <select name="searchmode" id="searchmode">
-                            <option value="starting">starting with</option> 
-                            <option value="containing">containing</option> 
-                            <option value="end with">end with</option> 
-                            <option value="exact">exact</option> 
-                        </select> 
-                        <input type="text" name="searchstring" value="<!-- TMPL_VAR ESCAPE='HTML' name='searchstring' -->" />
-                        </li>
-                        <li>
-                        <label for="lang_english">Languages To Return</label>
-                        <!-- TMPL_IF NAME="lang_english" -->
-                        English: <input type="checkbox" name="lang_english" id="lang_english" value='EN' checked="1" />
-                        <!-- TMPL_ELSE -->
-                        English: <input type="checkbox" name="lang_english" id="lang_english" value='EN'  />
-                        <!-- /TMPL_IF -->
-                        <!-- TMPL_IF NAME="lang_french" -->
-                        French: <input type="checkbox" name="lang_french" id="lang_french" value='FR' checked="1"/>
-                        <!-- TMPL_ELSE -->
-                        French: <input type="checkbox" name="lang_french" id="lang_french" value='FR' />
-                        <!-- /TMPL_IF -->
-                        <!-- TMPL_IF NAME="lang_spanish" -->
-                        Spanish: <input type="checkbox" name="lang_spanish" id="lang_spanish" value='ES' checked="1"  />
-                        <!-- TMPL_ELSE -->
-                        Spanish: <input type="checkbox" name="lang_spanish" id="lang_spanish" value='ES'  />
-                        <!-- /TMPL_IF -->
-                        </li> 
-                     </ol>
-                     </fieldset>
-                     <fieldset class="action">
-                     <input type="submit" value="Perform Search" />
-                     <a class="cancel close" href="#">Cancel</a>
-                     </fieldset>
-                </form>
-            </div>
-<!-- TMPL_IF NAME='ss_results_mode' -->
-            <div id="ss_results">
-            <h2>Search Results</h2>
-                 <ul>
-<!-- TMPL_LOOP NAME="term_array" -->
-                    <li> <!-- TMPL_VAR NAME="matchedTerm" --> (<!--TMPL_VAR NAME="language" -->) 
-                        (<a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='language' -->"><!-- TMPL_VAR NAME="termcode"--></a>)
-                    </li>
+<div id="breadcrumbs"><a href="/cgi-bin/koha/mainpage.pl">Home</a></div>
+ <div id="pageContainer">
+   <div id="pageContent">
+        <h1>Agrovoc Term Search</h1>
+        <div data-module="Search" data-module-id="searchPane">
+            <!-- <form id="agrovocSearch" action="#"> -->
+            <form id="agrovocSearch" method="get" action="search.pl">
+                <input type="hidden" name="op" value="do_simple_search" />
+                <label for="searchmode">Search</label><br/>
+                <select name="searchmode" id="searchmode">
+                    <option value="starting">starting with</option> 
+                    <option value="containing">containing</option> 
+                    <option value="end with">end with</option> 
+                    <option value="exact">exact</option> 
+                </select> 
+                        <input type="text" name="searchstring" value="<!-- TMPL_VAR ESCAPE='HTML' name='searchstring' -->" maxlength="50" size="15" />
+
+                <br/>
+                <label for="lang_english">Search Languages</label>
+                <!-- TMPL_IF NAME="lang_english" -->
+                English: <input type="checkbox" name="lang_english" id="lang_english" value='EN' checked="1" />
+                <!-- TMPL_ELSE -->
+                English: <input type="checkbox" name="lang_english" id="lang_english" value='EN'  />
+                <!-- /TMPL_IF -->
+                <!-- TMPL_IF NAME="lang_french" -->
+                French: <input type="checkbox" name="lang_french" id="lang_french" value='FR' checked="1"/>
+                <!-- TMPL_ELSE -->
+                French: <input type="checkbox" name="lang_french" id="lang_french" value='FR' />
+                <!-- /TMPL_IF -->
+                <!-- TMPL_IF NAME="lang_spanish" -->
+                Spanish: <input type="checkbox" name="lang_spanish" id="lang_spanish" value='ES' checked="1"  />
+                <!-- TMPL_ELSE -->
+                Spanish: <input type="checkbox" name="lang_spanish" id="lang_spanish" value='ES'  />
+                <!-- /TMPL_IF -->
+                <br/>
+                <input type="submit" value="Search Agrovoc" />
+                <!--<a class="cancel close" href="#">Cancel</a>-->
+            </form>
+         </div><!-- searchPane -->
+         <div data-module="SearchResults" data-module-id="searchResultsPane">
+            <h2>Search Results</h2> <!-- var ss_results_mode set -->
+            <ul>
+            <!-- TMPL_LOOP NAME="term_array" -->
+                <li>
+                <!-- TMPL_VAR NAME="matchedTerm" --> (<!--TMPL_VAR NAME="language" -->) 
+                (<a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='language' -->"><!-- TMPL_VAR NAME="termcode"--></a>)
+                </li>
 <!-- /TMPL_LOOP -->
-                </ul>
-            </div>
-<!-- /TMPL_IF -->
-<!-- TMPL_IF NAME="display_term_details" -->
-            <div id="term_details" class="yui-g">
-            <h2>Entry for Term</h2>
+            </ul>
+        </div>
+         <div data-module="Term" data-module-id="termPane">
+            <h2>Term Entry</h2>
                         <p><!-- TMPL_VAR NAME="termcode" -->: <strong><!-- TMPL_VAR NAME="labels" --></strong></p>
 <!-- Show term in Spanish/French -->
 <!-- TMPL_LOOP NAME="ALTLANG" -->
 See in <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='langcode' -->"><!-- TMPL_VAR NAME="langname" --></a>
 <!-- /TMPL_LOOP -->
 <!-- TMPL_IF NAME="showuf" -->
-Used for:
+<strong>Used for:</strong>
                         <ul>
 <!-- TMPL_LOOP NAME="UF" -->
                             <li>
@@ -84,8 +115,8 @@ Used for:
                         </ul>
 <!-- /TMPL_IF -->
 
-<p></p>
-Use:
+<br /\>
+<strong>Use:</strong>
 <ul>
 <!-- TMPL_LOOP NAME="USE" -->
     <li>
@@ -94,8 +125,8 @@ Use:
     </li>
 <!-- /TMPL_LOOP -->
 </ul>
-<p></p>
-Use For:
+<br /\>
+<strong>Use For:</strong>
 <ul>
 <!-- TMPL_LOOP NAME="UF" -->
     <li>
@@ -104,8 +135,8 @@ Use For:
     </li>
 <!-- /TMPL_LOOP -->
 </ul>
-<p></p>
-Broader Terms:
+<br />
+<strong>Broader Terms:</strong>
 <ul>
 <!-- TMPL_LOOP NAME="BT" -->
 <li>
@@ -115,8 +146,8 @@ Broader Terms:
 <!-- /TMPL_LOOP -->
 </ul>
 
-<p></p>
-Narrower Terms:
+<br />
+<strong>Narrower Terms:</strong>
 <ul>
 <!-- TMPL_LOOP NAME="NT" -->
 <li>
@@ -125,8 +156,8 @@ Narrower Terms:
 </li> 
 <!-- /TMPL_LOOP -->
 </ul>
-<p></p>
-Related terms:
+<br />
+<strong>Related terms:</strong>
 <ul>
 <!-- TMPL_LOOP NAME="RT" -->
 <li>
@@ -135,15 +166,17 @@ Related terms:
 </li>
 <!-- /TMPL_LOOP -->
 </ul>
+<br />
+<strong>Definitions:</strong><br />
+<!-- TMPL_VAR NAME="DEF" -->
+<br />
 
-<p></p>
-<p>Definitions:</p>
-<p> <!-- TMPL_VAR NAME="DEF" --></p>
-                    </div>
-<!-- /TMPL_IF -->
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- TMPL_INCLUDE NAME="popup-bottom.inc" -->
+         </div><!-- termPane -->
+         <div data-module="Select" data-module-id="selectPane">
+            <h2>Select</h2>
+         </div><!-- termPane -->
+
+      </div><!-- pageContent -->
+ </div><!-- pageContainer -->
+
+</body>

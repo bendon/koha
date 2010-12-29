@@ -28,6 +28,7 @@
     }
 </style>
 <script type="text/javascript" src="<!-- TMPL_VAR NAME="themelang" -->/js/agrovoc.js"></script>
+    <script type="text/javascript" src="<!-- TMPL_VAR name='themelang' -->/js/agrovoc.support.js"></script>
    <style type="text/css">
    #custom-doc { width:53em;*width:51.72em;min-width:689px; margin:auto; text-align:left; }
 #ss-results { border: 2px inset;
@@ -86,17 +87,6 @@ $(function() {
                 <!--<a class="cancel close" href="#">Cancel</a>-->
             </form>
          </div><!-- searchPane -->
-         <div data-module="SearchResults" data-module-id="searchResultsPane">
-            <h2>Search Results</h2> <!-- var ss_results_mode set -->
-            <ul>
-            <!-- TMPL_LOOP NAME="term_array" -->
-                <li>
-                <!-- TMPL_VAR NAME="matchedTerm" --> (<!--TMPL_VAR NAME="language" -->) 
-                (<a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='language' -->"><!-- TMPL_VAR NAME="termcode"--></a>)
-                </li>
-<!-- /TMPL_LOOP -->
-            </ul>
-        </div>
          <div data-module="Term" data-module-id="termPane">
             <h2>Term Entry</h2>
                         <p><!-- TMPL_VAR NAME="termcode" -->: <strong><!-- TMPL_VAR NAME="labels" --></strong></p>
@@ -172,6 +162,17 @@ See in <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL
 <br />
 
          </div><!-- termPane -->
+         <div data-module="SearchResults" data-module-id="searchResultsPane">
+            <h2>Search Results</h2> <!-- var ss_results_mode set -->
+            <ul>
+            <!-- TMPL_LOOP NAME="term_array" -->
+                <li>
+                <!-- TMPL_VAR NAME="matchedTerm" --> (<!--TMPL_VAR NAME="language" -->) 
+                (<a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='language' -->"><!-- TMPL_VAR NAME="termcode"--></a>)
+                </li>
+<!-- /TMPL_LOOP -->
+            </ul>
+        </div>
          <div data-module="Select" data-module-id="selectPane">
             <h2>Select</h2>
          </div><!-- termPane -->

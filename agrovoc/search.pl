@@ -83,7 +83,7 @@ sub call_simple_search {
             if ( $termcode eq 'NumberOfResults' ) {
                 last;
             }
-            if ( !exists $langs{$language} ) {
+            if ( !$language || !exists $langs{$language} ) {
                 next;
             }
             push @{$array_ref},

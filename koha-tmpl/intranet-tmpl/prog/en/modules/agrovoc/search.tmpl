@@ -83,13 +83,18 @@ $(function() {
                 Spanish: <input type="checkbox" name="lang_spanish" id="lang_spanish" value='ES'  />
                 <!-- /TMPL_IF -->
                 <br/>
-                <input type="submit" value="Search Agrovoc" />
+                <div class="buttonBar">
+                <input class="green90x24" type="submit" value="Search Agrovoc" />
                 <!--<a class="cancel close" href="#">Cancel</a>-->
+                </div>
             </form>
          </div><!-- searchPane -->
+<!---  TERM PANE -->
          <div data-module="Term" data-module-id="termPane">
             <h2>Term Entry</h2>
+            <!-- TMPL_IF NAME="termcode" -->
                         <p><!-- TMPL_VAR NAME="termcode" -->: <strong><!-- TMPL_VAR NAME="labels" --></strong></p>
+            <!-- /TMPL_IF -->
 <!-- Show term in Spanish/French -->
 <!-- TMPL_LOOP NAME="ALTLANG" -->
 See in <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='langcode' -->"><!-- TMPL_VAR NAME="langname" --></a>
@@ -160,6 +165,13 @@ See in <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL
 <strong>Definitions:</strong><br />
 <!-- TMPL_VAR NAME="DEF" -->
 <br />
+<div class="buttonBar">
+    <!-- TMPL_IF NAME="termcode" -->
+    <strong>Save As:</strong>
+    <button class="green90x24">Primary</button>
+    <button class="green90x24">Secondary</button>
+    <!-- /TMPL_IF -->
+</div>
 
          </div><!-- termPane -->
          <div data-module="SearchResults" data-module-id="searchResultsPane">

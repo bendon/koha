@@ -28,7 +28,7 @@
     }
 </style>
 <script type="text/javascript" src="<!-- TMPL_VAR NAME="themelang" -->/js/agrovoc.js"></script>
-    <script type="text/javascript" src="<!-- TMPL_VAR name='themelang' -->/js/agrovoc.support.js"></script>
+<script type="text/javascript" src="<!-- TMPL_VAR name='themelang' -->/js/agrovoc.support.js"></script>
    <style type="text/css">
    #custom-doc { width:53em;*width:51.72em;min-width:689px; margin:auto; text-align:left; }
 #ss-results { border: 2px inset;
@@ -41,9 +41,25 @@
    </style>
 <script type="text/javascript">
 //<![CDATA[
-$(function() {
+//$(function() {
 
-});
+//});
+function saveTerm(rank, termcode, term, language) {
+    //alert("rank = " + rank + " termcode = " + termcode + " term = " + term + " lang = " + language);
+    var termlist;
+    if (rank == 1) {
+        termlist = document.getElementById('primaryTerms');
+
+    } else {
+        termlist = document.getElementById('secondaryTerms');
+    }
+    //var children = termlist.childNodes();
+//    var termObj  = {
+//        termcode: termcode,
+//        term    : term,
+//        lang    : language
+//     }
+}
 //]]
 </script>
 </head>
@@ -168,8 +184,8 @@ See in <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL
 <div class="buttonBar">
     <!-- TMPL_IF NAME="termcode" -->
     <strong>Save As:</strong>
-    <button class="green90x24">Primary</button>
-    <button class="green90x24">Secondary</button>
+    <button class="green90x24" onclick="saveTerm(1,<!-- TMPL_VAR NAME='termcode' -->,'<!-- TMPL_VAR NAME='labels' -->','<!-- TMPL_VAR NAME='termlang'-->'); return false;">Primary</button>
+    <button class="green90x24" onclick="saveTerm(2,<!-- TMPL_VAR NAME='termcode' -->,'<!-- TMPL_VAR NAME='labels' -->','<!-- TMPL_VAR NAME='termlang'-->'); return false;"> Secondary</button>
     <!-- /TMPL_IF -->
 </div>
 
@@ -186,7 +202,13 @@ See in <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL
             </ul>
         </div>
          <div data-module="Select" data-module-id="selectPane">
-            <h2>Select</h2>
+            <h2>Selected</h2>
+                <form>
+                <div id="primaryTerms">
+                </div>
+                <div id="secondaryTerms">
+                </div>
+                </form>
          </div><!-- termPane -->
 
       </div><!-- pageContent -->

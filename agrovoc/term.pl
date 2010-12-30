@@ -46,12 +46,6 @@ $lang ||= 'EN';
 my $concept = retrieve_concept( $q->param('termcode'), $lang );
 my $label = join ' -- ', @{ $concept->{labels} };
 
-#my $show_uf  = @{ $concept->{UF} };
-#my $show_use = @{ $concept->{USE} };
-#my $show_bt  = @{ $concept->{BT} };
-#my $show_nt  = @{ $concept->{NT} };
-#my $show_rt  = @{ $concept->{RT} };
-#my $show_def = length $concept->{Definitions};
 $template->param(
     display_term_details => 1,
     termcode             => $concept->{termcode},
@@ -63,6 +57,7 @@ $template->param(
     RT                   => $concept->{RT},
     DEF                  => $concept->{Definitions},
     ALTLANG              => $concept->{other_lang},
+    termlang             => $lang,
 );
 
 output_html_with_http_headers( $q, $cookie, $template->output );

@@ -1,7 +1,5 @@
 // Functions to be used in the agrovoc interface
 //
-//function changeLanguage() {
-//}
 
 function get_subj_tag_id() {
     var subjTab = document.getElementById('tab6xx');

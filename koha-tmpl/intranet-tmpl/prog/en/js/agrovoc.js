@@ -146,6 +146,8 @@ function searchResults(resultString) {
         var b        = termlinkButton(results[i].termcode, results[i].language);
         li.appendChild(labelTxt);
         li.appendChild(b);
+        var s = selectCheckbox(results[i].termcode, results[i].matchedTerm, results[i].language);
+        li.appendChild(s);
         ul.appendChild(li);
     }
     div.replaceChild(ul,oldul);
@@ -206,11 +208,27 @@ function replaceTList(listId, termlist)
         var b        = termlinkButton(termlist[i].termcode, termlist[i].language);
         li.appendChild(labelTxt);
         li.appendChild(b);
+        var s = selectCheckbox(termlist[i].termcode, termlist[i].label, termlist[i].language);
+        li.appendChild(s);
         ul.appendChild(li);
     }
     div.replaceChild(ul,oldul);
 }
 
+function selectCheckbox(termcode, label, language)
+{
+// <input type="checkbox"> Select?
+    var b = document.createElement("button");
+    var scriptTxt = 'saveTerm(' + termcode + ",'";
+    scriptTxt += label + "','";
+    scriptTxt += language + "'); return false;";
+
+    b.type = 'button'; // to ensure it dosent default to submit
+    b.setAttribute('onclick', scriptTxt);
+    var txt = document.createTextNode(" select?");
+    b.appendChild(txt);
+    return b;
+}
 
 /*
  * Primary/Secondary

@@ -22,35 +22,44 @@ use strict;
 use warnings;
 
 use CGI;
-use JSON;
 
 #use Data::Dumper;
+use C4::Auth qw( get_template_and_user);
+use C4::Output qw(output_html_with_http_headers);
 use C4::AgrovocWSService qw( simpleSearchByMode2 );
 
 my $q = CGI->new;
 
+my ( $template, $loggedinuser, $cookie ) = get_template_and_user(
+    {   template_name   => 'agrovoc/search.tmpl',
+        query           => $q,
+        type            => 'intranet',
+        authnotrequired => 1,
+        flagsrequired   => { catalogue => 1 },
+        debug           => 1,
+    }
+);
+
 my $op = $q->param('op');
 
 if ($op) {
-    if ( $op eq 'search' ) {
+    if ( $op eq 'do_simple_search' ) {
         my $search_params = {};
         $search_params->{searchmode}   = $q->param('searchmode');
         $search_params->{searchstring} = $q->param('searchstring');
-
-        my @languages = $q->param('language');
-        $search_params->{languages} = \@languages;
-
-        # $search_params->{languages}    = get_set_languages($q);
+        $search_params->{languages}    = get_set_languages($q);
         my $arr_ref = call_simple_search($search_params);
 
-        my $json_text = to_json( $arr_ref, { utf8 => 1 } );
-
-        #warn($json_text);
-        print $q->header('application/json');
-        print $json_text;
+        $template->param(
+            term_array      => $arr_ref,
+            ss_results_mode => 1,
+        );
     }
 
+} else {
+    get_set_languages($q);
 }
+output_html_with_http_headers( $q, $cookie, $template->output );
 
 sub call_simple_search {
     my $sp = shift;
@@ -87,3 +96,24 @@ sub call_simple_search {
     return $array_ref;
 }
 
+sub get_set_languages {
+    my $cgi_query = shift;
+    my $lang_arr  = [];
+    if ( $cgi_query->param('lang_english') ) {
+        push @{$lang_arr}, 'EN';
+        $template->param( lang_english => 'EN' );
+    }
+    if ( $cgi_query->param('lang_french') ) {
+        push @{$lang_arr}, 'FR';
+        $template->param( lang_french => 'FR' );
+    }
+    if ( $cgi_query->param('lang_spanish') ) {
+        push @{$lang_arr}, 'ES';
+        $template->param( lang_spanish => 'ES' );
+    }
+    if ( @{$lang_arr} == 0 ) {
+        push @{$lang_arr}, 'EN';
+        $template->param( lang_english => 'EN' );
+    }
+    return $lang_arr;
+}

@@ -2,6 +2,7 @@
 <title>Koha &rsaquo; Agrovoc Search</title>
 <!-- TMPL_INCLUDE NAME="greybox.inc" -->
 <!-- TMPL_INCLUDE NAME="doc-head-close.inc" -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="<!-- TMPL_VAR NAME="themelang"-->/css/agrovoc.css" />
 <style type="text/css">
     div#searchPane {
@@ -27,9 +28,10 @@
         clear: both;
     }
 </style>
+<script type="text/javascript" src="<!-- TMPL_VAR NAME="themelang" -->/lib/json2.js"></script>
 <script type="text/javascript" src="<!-- TMPL_VAR NAME="themelang" -->/js/agrovoc.js"></script>
 <script type="text/javascript" src="<!-- TMPL_VAR name='themelang' -->/js/agrovoc.support.js"></script>
-   <style type="text/css">
+<style type="text/css">
    #custom-doc { width:53em;*width:51.72em;min-width:689px; margin:auto; text-align:left; }
 #ss-results { border: 2px inset;
     height: 400px;
@@ -38,30 +40,7 @@
       z-index: 500;
    #term_details { float: right; width: 23.3333em; }
     
-   </style>
-<script type="text/javascript">
-//<![CDATA[
-//$(function() {
-
-//});
-function saveTerm(rank, termcode, term, language) {
-    //alert("rank = " + rank + " termcode = " + termcode + " term = " + term + " lang = " + language);
-    var termlist;
-    if (rank == 1) {
-        termlist = document.getElementById('primaryTerms');
-
-    } else {
-        termlist = document.getElementById('secondaryTerms');
-    }
-    //var children = termlist.childNodes();
-//    var termObj  = {
-//        termcode: termcode,
-//        term    : term,
-//        lang    : language
-//     }
-}
-//]]
-</script>
+</style>
 </head>
 <body>
 <div id="breadcrumbs"><a href="/cgi-bin/koha/mainpage.pl">Home</a></div>
@@ -69,9 +48,9 @@ function saveTerm(rank, termcode, term, language) {
    <div id="pageContent">
         <h1>Agrovoc Term Search</h1>
         <div data-module="Search" data-module-id="searchPane">
-            <!-- <form id="agrovocSearch" action="#"> -->
-            <form id="agrovocSearch" method="get" action="search.pl">
-                <input type="hidden" name="op" value="do_simple_search" />
+            <!--<form id="agrovocSearch" method="get" action="search.pl">-->
+            <form id="agrovocSearch">
+<!--                <input type="hidden" name="op" value="do_simple_search" />-->
                 <label for="searchmode">Search</label><br/>
                 <select name="searchmode" id="searchmode">
                     <option value="starting">starting with</option> 
@@ -79,7 +58,7 @@ function saveTerm(rank, termcode, term, language) {
                     <option value="end with">end with</option> 
                     <option value="exact">exact</option> 
                 </select> 
-                        <input type="text" name="searchstring" value="<!-- TMPL_VAR ESCAPE='HTML' name='searchstring' -->" maxlength="50" size="15" />
+                        <input type="text" id="searchstring" name="searchstring" value="<!-- TMPL_VAR ESCAPE='HTML' name='searchstring' -->" maxlength="50" size="15" />
 
                 <br/>
                 <label for="lang_english">Search Languages</label>
@@ -100,83 +79,91 @@ function saveTerm(rank, termcode, term, language) {
                 <!-- /TMPL_IF -->
                 <br/>
                 <div class="buttonBar">
-                <input class="green90x24" type="submit" value="Search Agrovoc" />
-                <!--<a class="cancel close" href="#">Cancel</a>-->
+<input class="green90x24" type="button" value="search" onclick="searchTerm(); return false;" />
                 </div>
             </form>
          </div><!-- searchPane -->
 <!---  TERM PANE -->
-         <div data-module="Term" data-module-id="termPane">
+         <div data-module="Term" data-module-id="termPane" id="TermPane">
             <h2>Term Entry</h2>
+            <div id="termcodeLabel">
+            <p>
             <!-- TMPL_IF NAME="termcode" -->
-                        <p><!-- TMPL_VAR NAME="termcode" -->: <strong><!-- TMPL_VAR NAME="labels" --></strong></p>
+                        <!-- TMPL_VAR NAME="termcode" -->: <strong><!-- TMPL_VAR NAME="labels" --></strong>
             <!-- /TMPL_IF -->
+            </p>
+            </div>
+<div id='altlang'>
 <!-- Show term in Spanish/French -->
+<ul>
 <!-- TMPL_LOOP NAME="ALTLANG" -->
-See in <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='langcode' -->"><!-- TMPL_VAR NAME="langname" --></a>
+<li>
+See in <button type="button" class="termlink" onclick="lookupTerm(<!-- TMPL_VAR NAME='termcode' -->,'<!-- TMPL_VAR NAME='langcode'-->'); return false;"><!-- TMPL_VAR NAME='langname' --></button>
+</li>
 <!-- /TMPL_LOOP -->
-<!-- TMPL_IF NAME="showuf" -->
-<strong>Used for:</strong>
-                        <ul>
-<!-- TMPL_LOOP NAME="UF" -->
-                            <li>
-<!-- TMPL_VAR NAME="label" --> <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='language' -->"><!-- TMPL_VAR NAME="termcode"--></a>
-                            </li>
-<!-- /TMPL_LOOP -->
-                        </ul>
-<!-- /TMPL_IF -->
-
+</ul>
+</div>
 <br /\>
 <strong>Use:</strong>
+<div id="USElist">
 <ul>
 <!-- TMPL_LOOP NAME="USE" -->
     <li>
     <!-- TMPL_VAR NAME="label" --> 
-    <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='language' -->"><!-- TMPL_VAR NAME="termcode"--></a>
+    <button type="button" class="termlink" onclick="lookupTerm(<!-- TMPL_VAR NAME='termcode' -->,'<!-- TMPL_VAR NAME='termlang'-->'); return false;"><!-- TMPL_VAR NAME='termcode' --></button>
     </li>
 <!-- /TMPL_LOOP -->
 </ul>
+</div>
 <br /\>
 <strong>Use For:</strong>
+<div id="UFlist">
 <ul>
 <!-- TMPL_LOOP NAME="UF" -->
     <li>
     <!-- TMPL_VAR NAME="label" --> 
-    <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='language' -->"><!-- TMPL_VAR NAME="termcode"--></a>
+    <button type="button" class="termlink" onclick="lookupTerm(<!-- TMPL_VAR NAME='termcode' -->,'<!-- TMPL_VAR NAME='termlang'-->'); return false;"><!-- TMPL_VAR NAME='termcode' --></button>
     </li>
 <!-- /TMPL_LOOP -->
 </ul>
+</div>
 <br />
 <strong>Broader Terms:</strong>
+<div id="BTlist">
 <ul>
 <!-- TMPL_LOOP NAME="BT" -->
 <li>
     <!-- TMPL_VAR NAME="label" -->
-    <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='language' -->"><!-- TMPL_VAR NAME="termcode"--></a>
+    <button type="button" class="termlink" onclick="lookupTerm(<!-- TMPL_VAR NAME='termcode' -->,'<!-- TMPL_VAR NAME='termlang'-->'); return false;"><!-- TMPL_VAR NAME='termcode' --></button>
 </li> 
 <!-- /TMPL_LOOP -->
 </ul>
+</div>
 
 <br />
 <strong>Narrower Terms:</strong>
+<div id="NTlist">
 <ul>
 <!-- TMPL_LOOP NAME="NT" -->
 <li>
     <!-- TMPL_VAR NAME="label" -->
-    <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='language' -->"><!-- TMPL_VAR NAME="termcode"--></a>
+    <button type="button" class="termlink" onclick="lookupTerm(<!-- TMPL_VAR NAME='termcode' -->,'<!-- TMPL_VAR NAME='termlang'-->'); return false;"><!-- TMPL_VAR NAME='termcode' --></button>
 </li> 
 <!-- /TMPL_LOOP -->
 </ul>
+</div>
 <br />
 <strong>Related terms:</strong>
+<div id="RTlist">
 <ul>
 <!-- TMPL_LOOP NAME="RT" -->
 <li>
     <!-- TMPL_VAR NAME="label" -->
-    <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL_VAR NAME='language' -->"><!-- TMPL_VAR NAME="termcode"--></a>
+    <button type="button" class="termlink" onclick="lookupTerm(<!-- TMPL_VAR NAME='termcode' -->,'<!-- TMPL_VAR NAME='termlang'-->'); return false;"><!-- TMPL_VAR NAME='termcode' --></button>
 </li>
 <!-- /TMPL_LOOP -->
 </ul>
+</div>
 <br />
 <strong>Definitions:</strong><br />
 <!-- TMPL_VAR NAME="DEF" -->
@@ -189,9 +176,10 @@ See in <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL
     <!-- /TMPL_IF -->
 </div>
 
-         </div><!-- termPane -->
+</div><!-- termPane -->
          <div data-module="SearchResults" data-module-id="searchResultsPane">
             <h2>Search Results</h2> <!-- var ss_results_mode set -->
+            <div id="resultsList">
             <ul>
             <!-- TMPL_LOOP NAME="term_array" -->
                 <li>
@@ -200,6 +188,7 @@ See in <a href="term.pl?termcode=<!-- TMPL_VAR NAME='termcode' -->&lang=<!--TMPL
                 </li>
 <!-- /TMPL_LOOP -->
             </ul>
+            </div>
         </div>
          <div data-module="Select" data-module-id="selectPane">
             <h2>Selected</h2>

@@ -60,6 +60,12 @@ button.green90x24 {
   padding: 0;
 }
 
+button.termlink {
+  font-size: 9pt;
+  color: #0000CC;
+  background-color: #f5ffe8
+}
+
 div.module {
   margin-bottom: 12px;
 }

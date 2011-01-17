@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright (C) 2010  PTFS-Europe Ltd.
+# Copyright (C) 2010,2011  PTFS-Europe Ltd.
 
 # This file is part of Koha.
 
@@ -22,45 +22,45 @@ use strict;
 use warnings;
 
 use CGI;
+use JSON;
 
 #use Data::Dumper;
-use C4::Auth qw( get_template_and_user);
-use C4::Output qw(output_html_with_http_headers);
 use C4::AgrovocWSService
   qw( getConceptInfoByTermcode getTermByLanguage getDefinitions);
 
-my $q = CGI->new;
-
-my ( $template, $loggedinuser, $cookie ) = get_template_and_user(
-    {   template_name   => 'agrovoc/search.tmpl',
-        query           => $q,
-        type            => 'intranet',
-        authnotrequired => 1,
-        flagsrequired   => { catalogue => 1 },
-        debug           => 1,
-    }
-);
+my $q    = CGI->new;
 my $lang = $q->param('lang');
 $lang ||= 'EN';
 
 my $concept = retrieve_concept( $q->param('termcode'), $lang );
 my $label = join ' -- ', @{ $concept->{labels} };
 
-$template->param(
-    display_term_details => 1,
-    termcode             => $concept->{termcode},
-    labels               => $label,
-    UF                   => $concept->{UF},
-    USE                  => $concept->{USE},
-    BT                   => $concept->{BT},
-    NT                   => $concept->{NT},
-    RT                   => $concept->{RT},
-    DEF                  => $concept->{Definitions},
-    ALTLANG              => $concept->{other_lang},
-    termlang             => $lang,
-);
+#$template->param(
+#    display_term_details => 1,
+#    termcode             => $concept->{termcode},
+#    labels               => $label,
+#    UF                   => $concept->{UF},
+#    USE                  => $concept->{USE},
+#    BT                   => $concept->{BT},
+#    NT                   => $concept->{NT},
+#    RT                   => $concept->{RT},
+#    DEF                  => $concept->{Definitions},
+#    ALTLANG              => $concept->{other_lang},
+#    termlang             => $lang,
+#);
 
-output_html_with_http_headers( $q, $cookie, $template->output );
+#output_html_with_http_headers( $q, $cookie, $template->output );
+print $q->header('application/json');
+my $json = {
+    labels   => $label,
+    termlang => $lang,
+    concept  => $concept,
+};
+
+my $json_text = to_json( $json, { utf8 => 1 } );
+
+#warn("JSON=$json_text");
+print $json_text;
 
 sub retrieve_concept {
     my $termcode = shift;
@@ -148,17 +148,3 @@ sub _string2array {
     return split /,\s*/, $string;
 }
 
-sub search_languages {
-    my $cgi_query = shift;
-    my $lang_hash = {};
-    if ( $cgi_query->param('lang_english') ) {
-        $template->param( lang_english => 'EN' );
-    }
-    if ( $cgi_query->param('lang_french') ) {
-        $template->param( lang_french => 'FR' );
-    }
-    if ( $cgi_query->param('lang_spanish') ) {
-        $template->param( lang_spanish => 'ES' );
-    }
-    return;
-}

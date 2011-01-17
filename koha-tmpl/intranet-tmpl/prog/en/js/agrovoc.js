@@ -114,7 +114,7 @@ function addTermSaveButton(termcode, labels, language) {
     b.className = 'green90x24';
     b.type = 'button'; // to ensure it dosent default to submit
     b.setAttribute('onclick', scriptTxt);
-    var txt = document.createTextNode('Save');
+    var txt = document.createTextNode('Select');
     b.appendChild(txt);
 
     if (oldb[0]) {

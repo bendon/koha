@@ -95,8 +95,44 @@ function displayTerm(termString) {
     replaceTList('BTlist', termObj.concept.BT);
     replaceTList('RTlist', termObj.concept.RT);
     replaceTList('UFlist', termObj.concept.UF);
+    addTermSaveButton(termObj.concept.termcode, termObj.labels, termObj.concept.language);
+}
 
-} 
+function addTermSaveButton(termcode, labels, language) {
+    /*
+     * Add to the div saveButtonBar
+    <strong>Save As:</strong>
+    <button class="green90x24" onclick="saveTerm(1,<!-- TMPL_VAR NAME='termcode' -->,'<!-- TMPL_VAR NAME='labels' -->','<!-- TMPL_VAR NAME='termlang'-->'); return false;">Primary</button>
+     */
+    var div = document.getElementById('saveButtonBar');
+    var b = document.createElement("button");
+    var oldb   = div.getElementsByTagName("button");
+    var scriptTxt = 'saveTerm(' + termcode + ",'";
+    scriptTxt += labels + "','";
+    scriptTxt += language + "'); return false;";
+
+    b.className = 'green90x24';
+    b.type = 'button'; // to ensure it dosent default to submit
+    b.setAttribute('onclick', scriptTxt);
+    var txt = document.createTextNode('Save');
+    b.appendChild(txt);
+
+    if (oldb[0]) {
+        div.replaceChild(b, oldb[0]);
+    } else {
+        div.appendChild(b);
+    }
+
+}
+
+function saveTerm(termcode, labels, termlang) {
+    /* Write the term in the save box */
+    var div = document.getElementById('savedTerms');
+    var newPara = document.createElement("p");
+    var txt = document.createTextNode(labels + ': ' + termcode);
+    newPara.appendChild(txt);
+    div.appendChild(newPara);
+}
 
 function searchResults(resultString) {
     var results = JSON.parse(resultString);
@@ -119,7 +155,7 @@ function searchResults(resultString) {
 function replaceAltLang(termcode, langList)
 {   // langname langcode
     var div    = document.getElementById('altlang');
-    
+
     var oldul = div.getElementsByTagName("ul")[0];
     var ul = document.createElement("ul");
     for(var i = 0; i < langList.length; i++) {
@@ -133,7 +169,7 @@ function replaceAltLang(termcode, langList)
     div.replaceChild(ul,oldul);
 }
 
-function termlinkButton(termcode, language) 
+function termlinkButton(termcode, language)
 {
     var b = document.createElement("button");
     var scriptTxt = 'lookupTerm(' + termcode + ",'";
@@ -146,7 +182,7 @@ function termlinkButton(termcode, language)
     return b;
 }
 
-function langButton(termcode, language, languageLabel) 
+function langButton(termcode, language, languageLabel)
 {
     var b = document.createElement("button");
     var scriptTxt = 'lookupTerm(' + termcode + ",'";
@@ -203,7 +239,7 @@ function agrovocAddTerm( index, term ) {
         inputs[i].setAttribute('name',inputs[i].getAttribute('name')+new_key);
 	linkid = id_input;
     }
-    
+
     // select 
     for(var i=0,len=selects.length; i<len ; i++ ){
         id_input = selects[i].getAttribute('id')+new_key;

@@ -168,7 +168,7 @@ See in <button type="button" class="termlink" onclick="lookupTerm(<!-- TMPL_VAR 
 <strong>Definitions:</strong><br />
 <!-- TMPL_VAR NAME="DEF" -->
 <br />
-<div class="buttonBar">
+<div class="buttonBar" id="saveButtonBar">
     <!-- TMPL_IF NAME="termcode" -->
     <strong>Save As:</strong>
     <button class="green90x24" onclick="saveTerm(1,<!-- TMPL_VAR NAME='termcode' -->,'<!-- TMPL_VAR NAME='labels' -->','<!-- TMPL_VAR NAME='termlang'-->'); return false;">Primary</button>
@@ -192,6 +192,8 @@ See in <button type="button" class="termlink" onclick="lookupTerm(<!-- TMPL_VAR 
         </div>
          <div data-module="Select" data-module-id="selectPane">
             <h2>Selected</h2>
+                <div id="savedTerms">
+                </div>
                 <form>
                 <div id="primaryTerms">
                 </div>

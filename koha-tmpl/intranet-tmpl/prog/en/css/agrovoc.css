@@ -60,6 +60,15 @@ button.green90x24 {
   padding: 0;
 }
 
+button.selectlink {
+  border: medium none;
+  color #004065;
+  outline: medium none;
+  padding: 0;
+  text-decoration:none;
+  font-size: 0.8em;
+}
+
 button.termlink {
   font-size: 9pt;
   color: #0000CC;

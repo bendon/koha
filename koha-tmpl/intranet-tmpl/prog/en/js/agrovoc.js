@@ -95,7 +95,7 @@ function displayTerm(termString) {
     replaceTList('BTlist', termObj.concept.BT);
     replaceTList('RTlist', termObj.concept.RT);
     replaceTList('UFlist', termObj.concept.UF);
-    addTermSaveButton(termObj.concept.termcode, termObj.labels, termObj.concept.language);
+    addTermSaveButton(termObj.concept.termcode, termObj.labels, termObj.termlang);
 }
 
 function addTermSaveButton(termcode, labels, language) {
@@ -129,7 +129,7 @@ function saveTerm(termcode, labels, termlang) {
     /* Write the term in the save box */
     var div = document.getElementById('savedTerms');
     var newPara = document.createElement("p");
-    var txt = document.createTextNode(labels + ': ' + termcode);
+    var txt = document.createTextNode(labels + ': ' + termcode + ': (' + termlang + ')');
     newPara.appendChild(txt);
     div.appendChild(newPara);
 }
@@ -217,15 +217,15 @@ function replaceTList(listId, termlist)
 
 function selectCheckbox(termcode, label, language)
 {
-// <input type="checkbox"> Select?
     var b = document.createElement("button");
     var scriptTxt = 'saveTerm(' + termcode + ",'";
     scriptTxt += label + "','";
     scriptTxt += language + "'); return false;";
 
     b.type = 'button'; // to ensure it dosent default to submit
+    b.className = 'selectlink';
     b.setAttribute('onclick', scriptTxt);
-    var txt = document.createTextNode(" select?");
+    var txt = document.createTextNode("select");
     b.appendChild(txt);
     return b;
 }

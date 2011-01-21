@@ -101,13 +101,6 @@ function _UNIMARCFieldDoc(field,fieldnumber) {
         window.open("http://archive.ifla.org/VI/3/p1996-1/uni9.htm");
     }
 }
-/**
- * this function to open a popup to agrovoc
- */
-function PopupAgrovoc() {
-    window.open("http://aims.fao.org/website/Search-AGROVOC","Agrovoc",'width=740,height=450,location=yes,toolbar=no,scrollbars=yes,resize=yes');
-    //window.open("/cgi-bin/koha/agrovoc/search.pl","Agrovoc",'width=740,height=450,location=yes,toolbar=no,scrollbars=yes,resize=yes');
-}
 
 /**
  * check if mandatory subfields are written
@@ -276,6 +269,12 @@ function openAuth(tagsubfieldid,authtype) {
         }
     }           
 	newin=window.open("../authorities/auth_finder.pl?authtypecode="+  authtype+ "&index="+tagsubfieldid+"&value_mainstr="+encodeURI(mainmainstring)+"&value_main="+encodeURI(mainstring), "_blank",'width=700,height=550,toolbar=false,scrollbars=yes');
+}
+
+function openAgrovoc(tagsubfield) {
+//newin=window.open("../agrovoc/agrovoc.pl?lang_english='EN'&index="+tagsubfieldid+"&value_mainstr="+encodeURI(mainmainstring)+"&value_main="+encodeURI(mainstring), "_blank",'width=700,height=550,toolbar=false,scrollbars=yes');
+newin=window.open("../agrovoc/agrovoc.pl?lang_english='EN'&index="+tagsubfield,'width=700,height=550,toolbar=false,scrollbars=yes');
+// fields_in_use should be incremented for new 650s/651s
 }
 
 
@@ -534,6 +533,8 @@ function CloneSubfield(index){
                     anchors[i].setAttribute('onclick',"CloneSubfield('" + new_id + "')");
                 } else if (anchors[i].getAttribute('class') == 'buttonMinus') {
                     anchors[i].setAttribute('onclick',"UnCloneField('" + new_id + "')");
+                } else if (anchors[j].getAttribute('class') == 'buttonDot') {
+                   anchors[j].setAttribute('onclick',"openAgrovoc('" + divs[i].getAttribute('id') + "')");
                 }
             }
         }
@@ -623,6 +624,7 @@ function unHideSubfield(index,labelindex) { // FIXME :: is it used ?
     label = document.getElementById(labelindex);
     label.style.display='none';	
 }
+
 //]]>
 </script>
 <link type="text/css" rel="stylesheet" href="<!-- TMPL_VAR NAME="themelang" -->/css/addbiblio.css" />
@@ -696,7 +698,6 @@ function unHideSubfield(index,labelindex) { // FIXME :: is it used ?
 	 $(document).ready(function() {
 		$("#z3950searchc").empty();
         $("#savebutton").empty();
-//        $("#agrovocsearchc").empty();
 	    yuiToolbar();
 	 });
 
@@ -756,9 +757,6 @@ function unHideSubfield(index,labelindex) { // FIXME :: is it used ?
 					        <!-- /TMPL_LOOP -->
 			</select> 
 <input type="hidden" name="op" value="addbiblio" /></li>
-<!--
-            <li id="agrovocsearchc"><input type="button" id="agrovoc" value="Search Agrovoc" onclick="PopupAgrovoc(); return false;"/></li>
--->
 		</ul>
 </div>
 
@@ -822,7 +820,10 @@ function unHideSubfield(index,labelindex) { // FIXME :: is it used ?
                 <a href="#" tabindex="1" class="buttonPlus" onclick="CloneField('tag_<!-- TMPL_VAR name="tag"-->_<!-- TMPL_VAR NAME='index'--><!-- TMPL_VAR name="random" -->'); return false;" title="Repeat this Tag">+</a>
                 <a href="#" tabindex="1" class="buttonMinus" onclick="UnCloneField('tag_<!-- TMPL_VAR name="tag"-->_<!-- TMPL_VAR NAME='index'--><!-- TMPL_VAR name="random" -->'); return false;" title="Delete this Tag">&#8722;</a>
             <!-- /TMPL_IF -->
-            
+            <!-- TMPL_IF name="agrovoc" -->
+                <a href="#" tabindex="1" class="buttonDot" onclick="openAgrovoc('tag_<!-- TMPL_VAR name="tag"-->_<!-- TMPL_VAR NAME='index'--><!-- TMPL_VAR name="random" -->'); return false;" title="Agrovoc Search">&#8722;</a>
+            <!-- /TMPL_IF -->
+
         </div>
 	
         <!-- TMPL_LOOP NAME="subfield_loop" -->

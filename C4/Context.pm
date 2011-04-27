@@ -18,6 +18,7 @@ package C4::Context;
 
 use strict;
 use warnings;
+use Koha::Schema;
 use vars qw($VERSION $AUTOLOAD $context @context_stack);
 
 BEGIN {
@@ -322,6 +323,7 @@ sub new {
     $self->{"userenv"} = undef;        # User env
     $self->{"activeuser"} = undef;        # current active user
     $self->{"shelves"} = undef;
+    $self->{schema} = undef;
 
     bless $self, $class;
     return $self;
@@ -1046,6 +1048,43 @@ sub get_versions {
     }
     return %versions;
 }
+
+sub schema {
+    my $self = shift;
+
+    if ( $context->{schema} ) {
+        return $context->{schema};
+    }
+    $context->{schema}  = new_dbic_schema();
+
+    return $context->{schema};
+}
+
+sub new_dbic_schema {
+    my $db_scheme;
+    if ($context->config('db_scheme')) {
+        $db_scheme=db_scheme2dbi($context->config('db_scheme'));
+    }
+    else {
+        $db_scheme = q{mysql};
+    }
+    my $db_port = $context->config('port');
+    $db_port ||= q{};
+
+    my $dbi_dsn = 'DBI:' . $db_scheme . ':dbname=' . $context->config('database') .
+    ';host=' . $context->config('hostname') . ";port=$db_port";
+    my $db_user   = $context->config('user');
+    my $db_passwd = $context->config('pass');
+    my $dbi_params = {
+        AutoCommit => 1,
+    };
+
+    warn('DBIx Schema Connext');
+    my $schema = Koha::Schema->connect( $dbi_dsn, $db_user, $db_passwd, $dbi_params);
+
+    return $schema;
+}
+
 
 
 1;

@@ -23,7 +23,6 @@ __PACKAGE__->table("patronimage");
 =head2 cardnumber
 
   data_type: 'varchar'
-  is_foreign_key: 1
   is_nullable: 0
   size: 16
 
@@ -42,7 +41,7 @@ __PACKAGE__->table("patronimage");
 
 __PACKAGE__->add_columns(
   "cardnumber",
-  { data_type => "varchar", is_foreign_key => 1, is_nullable => 0, size => 16 },
+  { data_type => "varchar", is_nullable => 0, size => 16 },
   "mimetype",
   { data_type => "varchar", is_nullable => 0, size => 15 },
   "imagefile",
@@ -50,26 +49,9 @@ __PACKAGE__->add_columns(
 );
 __PACKAGE__->set_primary_key("cardnumber");
 
-=head1 RELATIONS
 
-=head2 cardnumber
-
-Type: belongs_to
-
-Related object: L<Koha::Schema::Result::Borrower>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "cardnumber",
-  "Koha::Schema::Result::Borrower",
-  { cardnumber => "cardnumber" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
-);
-
-
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:MK0xfCr7MlWgovAxwEz8bw
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 15:18:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:aglyQAUNiAp49IaKtxREtA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

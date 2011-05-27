@@ -30,6 +30,7 @@ __PACKAGE__->table("reserves");
 =head2 reservedate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 biblionumber
@@ -55,16 +56,19 @@ __PACKAGE__->table("reserves");
 =head2 notificationdate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 reminderdate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 cancellationdate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 reservenotes
@@ -86,6 +90,7 @@ __PACKAGE__->table("reserves");
 =head2 timestamp
 
   data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
   default_value: current_timestamp
   is_nullable: 0
 
@@ -98,11 +103,13 @@ __PACKAGE__->table("reserves");
 =head2 waitingdate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 expirationdate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 lowestpriority
@@ -121,7 +128,7 @@ __PACKAGE__->add_columns(
     is_nullable    => 0,
   },
   "reservedate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "biblionumber",
   {
     data_type      => "integer",
@@ -134,11 +141,11 @@ __PACKAGE__->add_columns(
   "branchcode",
   { data_type => "varchar", is_foreign_key => 1, is_nullable => 1, size => 10 },
   "notificationdate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "reminderdate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "cancellationdate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "reservenotes",
   { data_type => "mediumtext", is_nullable => 1 },
   "priority",
@@ -147,16 +154,17 @@ __PACKAGE__->add_columns(
   { data_type => "varchar", is_nullable => 1, size => 1 },
   "timestamp",
   {
-    data_type     => "timestamp",
+    data_type => "timestamp",
+    "datetime_undef_if_invalid" => 1,
     default_value => \"current_timestamp",
-    is_nullable   => 0,
+    is_nullable => 0,
   },
   "itemnumber",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
   "waitingdate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "expirationdate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "lowestpriority",
   { data_type => "tinyint", is_nullable => 0 },
 );
@@ -234,8 +242,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GDfIDplIfl7nNIMPkC87LA
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/Q0EBTGLw9VSpk5HU9mg+Q
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

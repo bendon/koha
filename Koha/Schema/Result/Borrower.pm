@@ -188,6 +188,7 @@ __PACKAGE__->table("borrowers");
 =head2 dateofbirth
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 branchcode
@@ -209,11 +210,13 @@ __PACKAGE__->table("borrowers");
 =head2 dateenrolled
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 dateexpiry
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 gonenoaddress
@@ -455,7 +458,7 @@ __PACKAGE__->add_columns(
   "b_phone",
   { data_type => "mediumtext", is_nullable => 1 },
   "dateofbirth",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "branchcode",
   {
     data_type => "varchar",
@@ -473,9 +476,9 @@ __PACKAGE__->add_columns(
     size => 10,
   },
   "dateenrolled",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "dateexpiry",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "gonenoaddress",
   { data_type => "tinyint", is_nullable => 1 },
   "lost",
@@ -830,8 +833,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:sJHGuG+lBzltCAFccqj2JA
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6I0/PJ8nP61/mqqazHdFGw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

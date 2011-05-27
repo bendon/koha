@@ -42,6 +42,7 @@ __PACKAGE__->table("virtualshelfcontents");
 =head2 dateadded
 
   data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
   default_value: current_timestamp
   is_nullable: 0
 
@@ -66,9 +67,10 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_nullable => 1 },
   "dateadded",
   {
-    data_type     => "timestamp",
+    data_type => "timestamp",
+    "datetime_undef_if_invalid" => 1,
     default_value => \"current_timestamp",
-    is_nullable   => 0,
+    is_nullable => 0,
   },
 );
 
@@ -105,8 +107,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6wqy7zQKDRYvwvyABv047g
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:P3dtYVltCe/BDoE5NVLSkQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

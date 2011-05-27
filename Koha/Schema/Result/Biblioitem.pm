@@ -75,6 +75,7 @@ __PACKAGE__->table("biblioitems");
 =head2 volumedate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 volumedesc
@@ -110,6 +111,7 @@ __PACKAGE__->table("biblioitems");
 =head2 timestamp
 
   data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
   default_value: current_timestamp
   is_nullable: 0
 
@@ -226,7 +228,7 @@ __PACKAGE__->add_columns(
   "publishercode",
   { data_type => "varchar", is_nullable => 1, size => 255 },
   "volumedate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "volumedesc",
   { data_type => "text", is_nullable => 1 },
   "collectiontitle",
@@ -241,9 +243,10 @@ __PACKAGE__->add_columns(
   { data_type => "text", is_nullable => 1 },
   "timestamp",
   {
-    data_type     => "timestamp",
+    data_type => "timestamp",
+    "datetime_undef_if_invalid" => 1,
     default_value => \"current_timestamp",
-    is_nullable   => 0,
+    is_nullable => 0,
   },
   "illus",
   { data_type => "varchar", is_nullable => 1, size => 255 },
@@ -311,8 +314,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ovZUKOmIv7xli6gP9jPeWg
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Gmla7cUsIX7RNDSFjoLe9w
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

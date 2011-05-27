@@ -71,12 +71,14 @@ __PACKAGE__->table("biblio");
 =head2 timestamp
 
   data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
   default_value: current_timestamp
   is_nullable: 0
 
 =head2 datecreated
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 0
 
 =head2 abstract
@@ -107,12 +109,13 @@ __PACKAGE__->add_columns(
   { data_type => "smallint", is_nullable => 1 },
   "timestamp",
   {
-    data_type     => "timestamp",
+    data_type => "timestamp",
+    "datetime_undef_if_invalid" => 1,
     default_value => \"current_timestamp",
-    is_nullable   => 0,
+    is_nullable => 0,
   },
   "datecreated",
-  { data_type => "date", is_nullable => 0 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 0 },
   "abstract",
   { data_type => "mediumtext", is_nullable => 1 },
 );
@@ -241,8 +244,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:UfeS96VevOvxKHRbnoBB+A
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZeV3H86/l/wZJB36GhvUdA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

@@ -75,6 +75,7 @@ __PACKAGE__->table("suggestions");
 =head2 date
 
   data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
   default_value: current_timestamp
   is_nullable: 0
 
@@ -137,16 +138,19 @@ __PACKAGE__->table("suggestions");
 =head2 accepteddate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 suggesteddate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 manageddate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 rejectedby
@@ -157,6 +161,7 @@ __PACKAGE__->table("suggestions");
 =head2 rejecteddate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 collectiontitle
@@ -216,9 +221,10 @@ __PACKAGE__->add_columns(
   { data_type => "varchar", is_nullable => 1, size => 255 },
   "date",
   {
-    data_type     => "timestamp",
+    data_type => "timestamp",
+    "datetime_undef_if_invalid" => 1,
     default_value => \"current_timestamp",
-    is_nullable   => 0,
+    is_nullable => 0,
   },
   "volumedesc",
   { data_type => "varchar", is_nullable => 1, size => 255 },
@@ -241,15 +247,15 @@ __PACKAGE__->add_columns(
   "acceptedby",
   { data_type => "integer", is_nullable => 1 },
   "accepteddate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "suggesteddate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "manageddate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "rejectedby",
   { data_type => "integer", is_nullable => 1 },
   "rejecteddate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "collectiontitle",
   { data_type => "text", is_nullable => 1 },
   "itemtype",
@@ -266,8 +272,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("suggestionid");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:rg4ERHPUtQWNkD/YSPCXEQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:pehBk7lWTD+IaamLqBihIQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

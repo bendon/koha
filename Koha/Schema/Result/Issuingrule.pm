@@ -96,6 +96,7 @@ __PACKAGE__->table("issuingrules");
 =head2 hardduedate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 hardduedatecompare
@@ -153,7 +154,7 @@ __PACKAGE__->add_columns(
   "issuelength",
   { data_type => "integer", is_nullable => 1 },
   "hardduedate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "hardduedatecompare",
   { data_type => "tinyint", default_value => 0, is_nullable => 0 },
   "renewalsallowed",
@@ -166,8 +167,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("branchcode", "categorycode", "itemtype");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yAvNiI+kt7WyfRZQksYvew
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:dfhrk8WqYcndsZL/5L2y1A
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

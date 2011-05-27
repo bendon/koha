@@ -37,11 +37,13 @@ __PACKAGE__->table("auth_header");
 =head2 datecreated
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 datemodified
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 origincode
@@ -83,9 +85,9 @@ __PACKAGE__->add_columns(
   "authtypecode",
   { data_type => "varchar", default_value => "", is_nullable => 0, size => 10 },
   "datecreated",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "datemodified",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "origincode",
   { data_type => "varchar", is_nullable => 1, size => 20 },
   "authtrees",
@@ -100,8 +102,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("authid");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:HWju8pnSUJckix/5H/3sHA
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:8O4O3y1/yqXur0D7jkqBlg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

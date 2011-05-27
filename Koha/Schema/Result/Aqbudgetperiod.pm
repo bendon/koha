@@ -29,11 +29,13 @@ __PACKAGE__->table("aqbudgetperiods");
 =head2 budget_period_startdate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 0
 
 =head2 budget_period_enddate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 0
 
 =head2 budget_period_active
@@ -76,9 +78,9 @@ __PACKAGE__->add_columns(
   "budget_period_id",
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "budget_period_startdate",
-  { data_type => "date", is_nullable => 0 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 0 },
   "budget_period_enddate",
-  { data_type => "date", is_nullable => 0 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 0 },
   "budget_period_active",
   { data_type => "tinyint", default_value => 0, is_nullable => 1 },
   "budget_period_description",
@@ -112,8 +114,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LQ0TS7G8d9ZFzypE8aFizg
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:A3iN/SCe80sQjAzsZ10fVg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

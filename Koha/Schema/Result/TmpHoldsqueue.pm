@@ -65,6 +65,7 @@ __PACKAGE__->table("tmp_holdsqueue");
 =head2 reservedate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 title
@@ -121,7 +122,7 @@ __PACKAGE__->add_columns(
   "cardnumber",
   { data_type => "varchar", is_nullable => 1, size => 16 },
   "reservedate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "title",
   { data_type => "mediumtext", is_nullable => 1 },
   "itemcallnumber",
@@ -137,8 +138,8 @@ __PACKAGE__->add_columns(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Npu/nqI49nGUgGX46ihyEA
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:02eMVPQ9W4tJBxVYUwh/Rw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

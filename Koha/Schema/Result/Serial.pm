@@ -56,6 +56,7 @@ __PACKAGE__->table("serial");
 =head2 planneddate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 notes
@@ -66,6 +67,7 @@ __PACKAGE__->table("serial");
 =head2 publisheddate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 itemnumber
@@ -76,6 +78,7 @@ __PACKAGE__->table("serial");
 =head2 claimdate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 routingnotes
@@ -97,15 +100,15 @@ __PACKAGE__->add_columns(
   "status",
   { data_type => "tinyint", default_value => 0, is_nullable => 0 },
   "planneddate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "notes",
   { data_type => "text", is_nullable => 1 },
   "publisheddate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "itemnumber",
   { data_type => "text", is_nullable => 1 },
   "claimdate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "routingnotes",
   { data_type => "text", is_nullable => 1 },
 );
@@ -129,8 +132,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:5mfTjZMKRkvZ3uyoGwobwg
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ebU9cN4amaz7eP6zy2ZB3g
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

@@ -57,6 +57,7 @@ __PACKAGE__->table("import_batches");
 =head2 upload_timestamp
 
   data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
   default_value: current_timestamp
   is_nullable: 0
 
@@ -123,9 +124,10 @@ __PACKAGE__->add_columns(
   { data_type => "integer", default_value => 0, is_nullable => 0 },
   "upload_timestamp",
   {
-    data_type     => "timestamp",
+    data_type => "timestamp",
+    "datetime_undef_if_invalid" => 1,
     default_value => \"current_timestamp",
-    is_nullable   => 0,
+    is_nullable => 0,
   },
   "overlay_action",
   {
@@ -204,8 +206,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SNytCOU52DwS+gjdZt+Wzw
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:QHBbv3CPmna8zeAL/GTPWw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

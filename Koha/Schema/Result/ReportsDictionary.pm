@@ -40,11 +40,13 @@ __PACKAGE__->table("reports_dictionary");
 =head2 date_created
 
   data_type: 'datetime'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 date_modified
 
   data_type: 'datetime'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 saved_sql
@@ -67,9 +69,17 @@ __PACKAGE__->add_columns(
   "description",
   { data_type => "text", is_nullable => 1 },
   "date_created",
-  { data_type => "datetime", is_nullable => 1 },
+  {
+    data_type => "datetime",
+    "datetime_undef_if_invalid" => 1,
+    is_nullable => 1,
+  },
   "date_modified",
-  { data_type => "datetime", is_nullable => 1 },
+  {
+    data_type => "datetime",
+    "datetime_undef_if_invalid" => 1,
+    is_nullable => 1,
+  },
   "saved_sql",
   { data_type => "text", is_nullable => 1 },
   "area",
@@ -78,8 +88,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:yp+A4fAZ+mEHs7rpGQvulA
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FpDK22fMjvzGUMSU420shw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

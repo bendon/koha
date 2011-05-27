@@ -40,6 +40,7 @@ __PACKAGE__->table("categories");
 =head2 enrolmentperioddate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 upperagelimit
@@ -108,7 +109,7 @@ __PACKAGE__->add_columns(
   "enrolmentperiod",
   { data_type => "smallint", is_nullable => 1 },
   "enrolmentperioddate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "upperagelimit",
   { data_type => "smallint", is_nullable => 1 },
   "dateofbirthrequired",
@@ -195,8 +196,8 @@ __PACKAGE__->might_have(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:peXX1AAw85hmztrQXkszKw
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:NTBGKOzhMC89WQ6HdY4TcA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

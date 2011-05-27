@@ -742,21 +742,6 @@ __PACKAGE__->has_many(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 patronimage
-
-Type: might_have
-
-Related object: L<Koha::Schema::Result::Patronimage>
-
-=cut
-
-__PACKAGE__->might_have(
-  "patronimage",
-  "Koha::Schema::Result::Patronimage",
-  { "foreign.cardnumber" => "self.cardnumber" },
-  { cascade_copy => 0, cascade_delete => 0 },
-);
-
 =head2 reserves
 
 Type: has_many
@@ -833,8 +818,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:6I0/PJ8nP61/mqqazHdFGw
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 15:18:17
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:fJW6HAYIHJYd0bVgX2Ub9Q
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

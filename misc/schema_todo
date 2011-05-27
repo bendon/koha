@@ -1,0 +1,8 @@
+matchpoint_component_norms.sequence should be renamed to avoid name collisions
+matchpoint_components.sequence should be renamed to avoid name collisions
+opac_news.new should be renamed to avoid name collisions
+
+patronimage has a constraint against a nullable field (borrower.cardnumber)
+surely this should be against borrowernumber (and/or cardnumber in patronimage should not allow null)
+
+

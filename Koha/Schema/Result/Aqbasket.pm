@@ -51,11 +51,13 @@ __PACKAGE__->table("aqbasket");
 =head2 creationdate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 closedate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 booksellerid
@@ -96,9 +98,9 @@ __PACKAGE__->add_columns(
   "contractnumber",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
   "creationdate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "closedate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "booksellerid",
   {
     data_type      => "integer",
@@ -188,8 +190,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:vUhMLlyKu4I1exXn5k6GSQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KeimnH/Uul+zPrdgRPZCng
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

@@ -35,6 +35,7 @@ __PACKAGE__->table("aqorders");
 =head2 entrydate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 quantity
@@ -63,6 +64,7 @@ __PACKAGE__->table("aqorders");
 =head2 datereceived
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 booksellerinvoicenumber
@@ -97,6 +99,7 @@ __PACKAGE__->table("aqorders");
 =head2 datecancellationprinted
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 notes
@@ -139,6 +142,7 @@ __PACKAGE__->table("aqorders");
 =head2 timestamp
 
   data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
   default_value: current_timestamp
   is_nullable: 0
 
@@ -163,6 +167,7 @@ __PACKAGE__->table("aqorders");
 =head2 budgetdate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 sort1
@@ -212,7 +217,7 @@ __PACKAGE__->add_columns(
   "biblionumber",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
   "entrydate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "quantity",
   { data_type => "smallint", is_nullable => 1 },
   "currency",
@@ -222,7 +227,7 @@ __PACKAGE__->add_columns(
   "totalamount",
   { data_type => "decimal", is_nullable => 1, size => [28, 6] },
   "datereceived",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "booksellerinvoicenumber",
   { data_type => "mediumtext", is_nullable => 1 },
   "freight",
@@ -234,7 +239,7 @@ __PACKAGE__->add_columns(
   "cancelledby",
   { data_type => "varchar", is_nullable => 1, size => 10 },
   "datecancellationprinted",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "notes",
   { data_type => "mediumtext", is_nullable => 1 },
   "supplierreference",
@@ -251,9 +256,10 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_nullable => 1 },
   "timestamp",
   {
-    data_type     => "timestamp",
+    data_type => "timestamp",
+    "datetime_undef_if_invalid" => 1,
     default_value => \"current_timestamp",
-    is_nullable   => 0,
+    is_nullable => 0,
   },
   "rrp",
   { data_type => "decimal", is_nullable => 1, size => [13, 2] },
@@ -262,7 +268,7 @@ __PACKAGE__->add_columns(
   "gst",
   { data_type => "decimal", is_nullable => 1, size => [13, 2] },
   "budgetdate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "sort1",
   { data_type => "varchar", is_nullable => 1, size => 80 },
   "sort2",
@@ -338,8 +344,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:lLI26/CY44iqVkpPpPZggg
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:PZHw78MK8GlmiDAeY11E4Q
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

@@ -48,6 +48,7 @@ __PACKAGE__->table("items");
 =head2 dateaccessioned
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 booksellerid
@@ -77,16 +78,19 @@ __PACKAGE__->table("items");
 =head2 replacementpricedate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 datelastborrowed
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 datelastseen
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 stack
@@ -164,6 +168,7 @@ __PACKAGE__->table("items");
 =head2 timestamp
 
   data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
   default_value: current_timestamp
   is_nullable: 0
 
@@ -182,6 +187,7 @@ __PACKAGE__->table("items");
 =head2 onloan
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 cn_source
@@ -259,7 +265,7 @@ __PACKAGE__->add_columns(
   "barcode",
   { data_type => "varchar", is_nullable => 1, size => 20 },
   "dateaccessioned",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "booksellerid",
   { data_type => "mediumtext", is_nullable => 1 },
   "homebranch",
@@ -269,11 +275,11 @@ __PACKAGE__->add_columns(
   "replacementprice",
   { data_type => "decimal", is_nullable => 1, size => [8, 2] },
   "replacementpricedate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "datelastborrowed",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "datelastseen",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "stack",
   { data_type => "tinyint", is_nullable => 1 },
   "notforloan",
@@ -302,16 +308,17 @@ __PACKAGE__->add_columns(
   { data_type => "mediumtext", is_nullable => 1 },
   "timestamp",
   {
-    data_type     => "timestamp",
+    data_type => "timestamp",
+    "datetime_undef_if_invalid" => 1,
     default_value => \"current_timestamp",
-    is_nullable   => 0,
+    is_nullable => 0,
   },
   "location",
   { data_type => "varchar", is_nullable => 1, size => 80 },
   "permanent_location",
   { data_type => "varchar", is_nullable => 1, size => 80 },
   "onloan",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "cn_source",
   { data_type => "varchar", is_nullable => 1, size => 10 },
   "cn_sort",
@@ -529,8 +536,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:+ZcMYRY7r5LPFMoJzxx8ow
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:bs/F+WnuajCwP8xIghAbQQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

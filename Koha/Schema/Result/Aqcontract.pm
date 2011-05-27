@@ -29,11 +29,13 @@ __PACKAGE__->table("aqcontract");
 =head2 contractstartdate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 contractenddate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 contractname
@@ -59,9 +61,9 @@ __PACKAGE__->add_columns(
   "contractnumber",
   { data_type => "integer", is_auto_increment => 1, is_nullable => 0 },
   "contractstartdate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "contractenddate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "contractname",
   { data_type => "varchar", is_nullable => 1, size => 50 },
   "contractdescription",
@@ -104,8 +106,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:aJd4fa2aCyyz5kRFClyY6g
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:c7v7Ck3wGSHy9NHH65FTuQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

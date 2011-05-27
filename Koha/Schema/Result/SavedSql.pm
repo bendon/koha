@@ -34,11 +34,13 @@ __PACKAGE__->table("saved_sql");
 =head2 date_created
 
   data_type: 'datetime'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 last_modified
 
   data_type: 'datetime'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 savedsql
@@ -49,6 +51,7 @@ __PACKAGE__->table("saved_sql");
 =head2 last_run
 
   data_type: 'datetime'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 report_name
@@ -76,13 +79,25 @@ __PACKAGE__->add_columns(
   "borrowernumber",
   { data_type => "integer", is_nullable => 1 },
   "date_created",
-  { data_type => "datetime", is_nullable => 1 },
+  {
+    data_type => "datetime",
+    "datetime_undef_if_invalid" => 1,
+    is_nullable => 1,
+  },
   "last_modified",
-  { data_type => "datetime", is_nullable => 1 },
+  {
+    data_type => "datetime",
+    "datetime_undef_if_invalid" => 1,
+    is_nullable => 1,
+  },
   "savedsql",
   { data_type => "text", is_nullable => 1 },
   "last_run",
-  { data_type => "datetime", is_nullable => 1 },
+  {
+    data_type => "datetime",
+    "datetime_undef_if_invalid" => 1,
+    is_nullable => 1,
+  },
   "report_name",
   { data_type => "varchar", is_nullable => 1, size => 255 },
   "type",
@@ -93,8 +108,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:jR/k6kfG2m1PRJ53tPtX8Q
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:nYmqaORq9GHEcQdKv/qPLA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

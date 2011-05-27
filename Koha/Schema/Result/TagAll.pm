@@ -52,6 +52,7 @@ __PACKAGE__->table("tags_all");
 =head2 date_created
 
   data_type: 'datetime'
+  datetime_undef_if_invalid: 1
   is_nullable: 0
 
 =cut
@@ -68,7 +69,11 @@ __PACKAGE__->add_columns(
   "language",
   { data_type => "integer", is_nullable => 1 },
   "date_created",
-  { data_type => "datetime", is_nullable => 0 },
+  {
+    data_type => "datetime",
+    "datetime_undef_if_invalid" => 1,
+    is_nullable => 0,
+  },
 );
 __PACKAGE__->set_primary_key("tag_id");
 
@@ -105,8 +110,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:h4cl3KHxbSWiKzGg5tkjeQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:zbt2xvNTMDyhUNJ3TWWt0g
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

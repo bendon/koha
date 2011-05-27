@@ -39,6 +39,7 @@ __PACKAGE__->table("saved_reports");
 =head2 date_run
 
   data_type: 'datetime'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =cut
@@ -51,13 +52,17 @@ __PACKAGE__->add_columns(
   "report",
   { data_type => "longtext", is_nullable => 1 },
   "date_run",
-  { data_type => "datetime", is_nullable => 1 },
+  {
+    data_type => "datetime",
+    "datetime_undef_if_invalid" => 1,
+    is_nullable => 1,
+  },
 );
 __PACKAGE__->set_primary_key("id");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0vray/lJF0pIVkc65wC4zA
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/HUucTj15TmyamgbKlmG2g
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

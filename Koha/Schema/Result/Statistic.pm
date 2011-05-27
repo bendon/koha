@@ -23,6 +23,7 @@ __PACKAGE__->table("statistics");
 =head2 datetime
 
   data_type: 'datetime'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 branch
@@ -85,7 +86,11 @@ __PACKAGE__->table("statistics");
 
 __PACKAGE__->add_columns(
   "datetime",
-  { data_type => "datetime", is_nullable => 1 },
+  {
+    data_type => "datetime",
+    "datetime_undef_if_invalid" => 1,
+    is_nullable => 1,
+  },
   "branch",
   { data_type => "varchar", is_nullable => 1, size => 10 },
   "proccode",
@@ -109,8 +114,8 @@ __PACKAGE__->add_columns(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:s2SVV10q0G/PTo+UfrqqwQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:cdxvx4rd0JqTIF8FNEk1zA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

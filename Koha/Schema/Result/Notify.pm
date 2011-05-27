@@ -41,11 +41,13 @@ __PACKAGE__->table("notifys");
 =head2 notify_date
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 notify_send_date
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 notify_level
@@ -71,9 +73,9 @@ __PACKAGE__->add_columns(
   "itemnumber",
   { data_type => "integer", default_value => 0, is_nullable => 0 },
   "notify_date",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "notify_send_date",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "notify_level",
   { data_type => "integer", default_value => 0, is_nullable => 0 },
   "method",
@@ -81,8 +83,8 @@ __PACKAGE__->add_columns(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LkIpN4ZXKMrYwESLYDlvRA
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:kbxl6EEArsN6AtGhwsOyow
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

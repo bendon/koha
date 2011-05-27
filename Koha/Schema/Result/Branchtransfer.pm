@@ -30,6 +30,7 @@ __PACKAGE__->table("branchtransfers");
 =head2 datesent
 
   data_type: 'datetime'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 frombranch
@@ -43,6 +44,7 @@ __PACKAGE__->table("branchtransfers");
 =head2 datearrived
 
   data_type: 'datetime'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 tobranch
@@ -69,7 +71,11 @@ __PACKAGE__->add_columns(
     is_nullable    => 0,
   },
   "datesent",
-  { data_type => "datetime", is_nullable => 1 },
+  {
+    data_type => "datetime",
+    "datetime_undef_if_invalid" => 1,
+    is_nullable => 1,
+  },
   "frombranch",
   {
     data_type => "varchar",
@@ -79,7 +85,11 @@ __PACKAGE__->add_columns(
     size => 10,
   },
   "datearrived",
-  { data_type => "datetime", is_nullable => 1 },
+  {
+    data_type => "datetime",
+    "datetime_undef_if_invalid" => 1,
+    is_nullable => 1,
+  },
   "tobranch",
   {
     data_type => "varchar",
@@ -140,8 +150,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:w1Xdff9kjacfliS+RirwrQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:GCrUDgleWCzsJ1LZD4sitw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

@@ -49,6 +49,7 @@ __PACKAGE__->table("reviews");
 =head2 datereviewed
 
   data_type: 'datetime'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =cut
@@ -65,13 +66,17 @@ __PACKAGE__->add_columns(
   "approved",
   { data_type => "tinyint", is_nullable => 1 },
   "datereviewed",
-  { data_type => "datetime", is_nullable => 1 },
+  {
+    data_type => "datetime",
+    "datetime_undef_if_invalid" => 1,
+    is_nullable => 1,
+  },
 );
 __PACKAGE__->set_primary_key("reviewid");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:nSTFCFHskBc94yI6vUoSkg
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:rvqJg1v2c80PeVRDbeRKNA
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

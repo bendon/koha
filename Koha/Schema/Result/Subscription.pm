@@ -42,6 +42,7 @@ __PACKAGE__->table("subscription");
 =head2 startdate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 aqbooksellerid
@@ -223,6 +224,7 @@ __PACKAGE__->table("subscription");
 =head2 firstacquidate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 manualhistory
@@ -316,6 +318,7 @@ __PACKAGE__->table("subscription");
 =head2 enddate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =cut
@@ -328,7 +331,7 @@ __PACKAGE__->add_columns(
   "librarian",
   { data_type => "varchar", default_value => "", is_nullable => 1, size => 100 },
   "startdate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "aqbooksellerid",
   { data_type => "integer", default_value => 0, is_nullable => 1 },
   "cost",
@@ -390,7 +393,7 @@ __PACKAGE__->add_columns(
   "issuesatonce",
   { data_type => "tinyint", default_value => 1, is_nullable => 0 },
   "firstacquidate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "manualhistory",
   { data_type => "tinyint", default_value => 0, is_nullable => 0 },
   "irregularity",
@@ -422,7 +425,7 @@ __PACKAGE__->add_columns(
   "graceperiod",
   { data_type => "integer", default_value => 0, is_nullable => 0 },
   "enddate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("subscriptionid");
 
@@ -444,8 +447,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:A1fhYkWhYg8wAAHBFsT0zQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:FxJ/Ff/xP/rx7c5BIBK59A
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

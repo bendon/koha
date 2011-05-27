@@ -29,6 +29,7 @@ __PACKAGE__->table("reserveconstraints");
 =head2 reservedate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 biblionumber
@@ -45,6 +46,7 @@ __PACKAGE__->table("reserveconstraints");
 =head2 timestamp
 
   data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
   default_value: current_timestamp
   is_nullable: 0
 
@@ -54,22 +56,23 @@ __PACKAGE__->add_columns(
   "borrowernumber",
   { data_type => "integer", default_value => 0, is_nullable => 0 },
   "reservedate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "biblionumber",
   { data_type => "integer", default_value => 0, is_nullable => 0 },
   "biblioitemnumber",
   { data_type => "integer", is_nullable => 1 },
   "timestamp",
   {
-    data_type     => "timestamp",
+    data_type => "timestamp",
+    "datetime_undef_if_invalid" => 1,
     default_value => \"current_timestamp",
-    is_nullable   => 0,
+    is_nullable => 0,
   },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0CNK2QqoE2DEp2Xu8GHxPQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:Pz2aIBSbHWHsNlG3JZFHCQ
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

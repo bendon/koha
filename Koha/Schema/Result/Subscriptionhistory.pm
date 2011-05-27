@@ -35,11 +35,13 @@ __PACKAGE__->table("subscriptionhistory");
 =head2 histstartdate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 histenddate
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 missinglist
@@ -74,9 +76,9 @@ __PACKAGE__->add_columns(
   "subscriptionid",
   { data_type => "integer", default_value => 0, is_nullable => 0 },
   "histstartdate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "histenddate",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "missinglist",
   { data_type => "longtext", is_nullable => 0 },
   "recievedlist",
@@ -89,8 +91,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("subscriptionid");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:r7o4c0D7z1eduB7xibXBsQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:eaP/Fsc+3EdUR2cHdpULJw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

@@ -23,6 +23,7 @@ __PACKAGE__->table("aqorderdelivery");
 =head2 ordernumber
 
   data_type: 'date'
+  datetime_undef_if_invalid: 1
   is_nullable: 1
 
 =head2 deliverynumber
@@ -51,7 +52,7 @@ __PACKAGE__->table("aqorderdelivery");
 
 __PACKAGE__->add_columns(
   "ordernumber",
-  { data_type => "date", is_nullable => 1 },
+  { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "deliverynumber",
   { data_type => "smallint", default_value => 0, is_nullable => 0 },
   "deliverydate",
@@ -63,8 +64,8 @@ __PACKAGE__->add_columns(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07002 @ 2011-04-26 16:38:49
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:i9AjqPQEPs+fwTmG2PM+WA
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:PDDNdV07MDa/FU+uwQLo8g
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

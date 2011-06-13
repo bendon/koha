@@ -93,6 +93,13 @@ __PACKAGE__->table("issuingrules");
   data_type: 'integer'
   is_nullable: 1
 
+=head2 lengthunit
+
+  data_type: 'varchar'
+  default_value: 'days'
+  is_nullable: 1
+  size: 10
+
 =head2 hardduedate
 
   data_type: 'date'
@@ -153,6 +160,13 @@ __PACKAGE__->add_columns(
   { data_type => "integer", is_nullable => 1 },
   "issuelength",
   { data_type => "integer", is_nullable => 1 },
+  "lengthunit",
+  {
+    data_type => "varchar",
+    default_value => "days",
+    is_nullable => 1,
+    size => 10,
+  },
   "hardduedate",
   { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "hardduedatecompare",
@@ -167,8 +181,8 @@ __PACKAGE__->add_columns(
 __PACKAGE__->set_primary_key("branchcode", "categorycode", "itemtype");
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:dfhrk8WqYcndsZL/5L2y1A
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-06-13 08:30:56
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:tTf//7INazkHYaXVQmfMaw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

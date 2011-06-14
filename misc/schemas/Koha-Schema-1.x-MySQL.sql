@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::MySQL
--- Created on Fri Jun 10 12:39:31 2011
+-- Created on Tue Jun 14 10:14:27 2011
 -- 
 SET foreign_key_checks=0;
 
@@ -1361,15 +1361,15 @@ DROP TABLE IF EXISTS `issues`;
 CREATE TABLE `issues` (
   `borrowernumber` integer,
   `itemnumber` integer,
-  `date_due` date,
+  `date_due` datetime,
   `branchcode` varchar(10),
   `issuingbranch` varchar(18),
-  `returndate` date,
-  `lastreneweddate` date,
+  `returndate` datetime,
+  `lastreneweddate` datetime,
   `return` varchar(4),
   `renewals` tinyint,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp,
-  `issuedate` date,
+  `issuedate` datetime,
   INDEX `issues_idx_borrowernumber` (`borrowernumber`),
   INDEX `issues_idx_itemnumber` (`itemnumber`),
   CONSTRAINT `issues_fk_borrowernumber` FOREIGN KEY (`borrowernumber`) REFERENCES `borrowers` (`borrowernumber`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -1395,6 +1395,7 @@ CREATE TABLE `issuingrules` (
   `chargename` varchar(100),
   `maxissueqty` integer,
   `issuelength` integer,
+  `lengthunit` varchar(10) DEFAULT 'days',
   `hardduedate` date,
   `hardduedatecompare` tinyint NOT NULL DEFAULT 0,
   `renewalsallowed` smallint NOT NULL DEFAULT 0,
@@ -1888,15 +1889,15 @@ DROP TABLE IF EXISTS `old_issues`;
 CREATE TABLE `old_issues` (
   `borrowernumber` integer,
   `itemnumber` integer,
-  `date_due` date,
+  `date_due` datetime,
   `branchcode` varchar(10),
   `issuingbranch` varchar(18),
-  `returndate` date,
-  `lastreneweddate` date,
+  `returndate` datetime,
+  `lastreneweddate` datetime,
   `return` varchar(4),
   `renewals` tinyint,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp,
-  `issuedate` date,
+  `issuedate` datetime,
   INDEX `old_issues_idx_borrowernumber` (`borrowernumber`),
   INDEX `old_issues_idx_itemnumber` (`itemnumber`),
   CONSTRAINT `old_issues_fk_borrowernumber` FOREIGN KEY (`borrowernumber`) REFERENCES `borrowers` (`borrowernumber`) ON DELETE CASCADE ON UPDATE CASCADE,

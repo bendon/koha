@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::PostgreSQL
--- Created on Fri Jun 10 12:39:32 2011
+-- Created on Tue Jun 14 10:14:28 2011
 -- 
 --
 -- Table: accountlines
@@ -1239,15 +1239,15 @@ DROP TABLE "issues" CASCADE;
 CREATE TABLE "issues" (
   "borrowernumber" integer,
   "itemnumber" integer,
-  "date_due" date,
+  "date_due" timestamp,
   "branchcode" character varying(10),
   "issuingbranch" character varying(18),
-  "returndate" date,
-  "lastreneweddate" date,
+  "returndate" timestamp,
+  "lastreneweddate" timestamp,
   "return" character varying(4),
   "renewals" smallint,
   "timestamp" timestamp DEFAULT current_timestamp NOT NULL,
-  "issuedate" date
+  "issuedate" timestamp
 );
 CREATE INDEX "issues_idx_borrowernumber" on "issues" ("borrowernumber");
 CREATE INDEX "issues_idx_itemnumber" on "issues" ("itemnumber");
@@ -1270,6 +1270,7 @@ CREATE TABLE "issuingrules" (
   "chargename" character varying(100),
   "maxissueqty" integer,
   "issuelength" integer,
+  "lengthunit" character varying(10) DEFAULT 'days',
   "hardduedate" date,
   "hardduedatecompare" smallint DEFAULT 0 NOT NULL,
   "renewalsallowed" smallint DEFAULT 0 NOT NULL,
@@ -1716,15 +1717,15 @@ DROP TABLE "old_issues" CASCADE;
 CREATE TABLE "old_issues" (
   "borrowernumber" integer,
   "itemnumber" integer,
-  "date_due" date,
+  "date_due" timestamp,
   "branchcode" character varying(10),
   "issuingbranch" character varying(18),
-  "returndate" date,
-  "lastreneweddate" date,
+  "returndate" timestamp,
+  "lastreneweddate" timestamp,
   "return" character varying(4),
   "renewals" smallint,
   "timestamp" timestamp DEFAULT current_timestamp NOT NULL,
-  "issuedate" date
+  "issuedate" timestamp
 );
 CREATE INDEX "old_issues_idx_borrowernumber" on "old_issues" ("borrowernumber");
 CREATE INDEX "old_issues_idx_itemnumber" on "old_issues" ("itemnumber");

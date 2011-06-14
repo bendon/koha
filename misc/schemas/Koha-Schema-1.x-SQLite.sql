@@ -1,6 +1,6 @@
 -- 
 -- Created by SQL::Translator::Producer::SQLite
--- Created on Fri Jun 10 12:39:32 2011
+-- Created on Tue Jun 14 10:14:27 2011
 -- 
 
 BEGIN TRANSACTION;
@@ -1323,15 +1323,15 @@ DROP TABLE issues;
 CREATE TABLE issues (
   borrowernumber integer,
   itemnumber integer,
-  date_due date,
+  date_due datetime,
   branchcode varchar(10),
   issuingbranch varchar(18),
-  returndate date,
-  lastreneweddate date,
+  returndate datetime,
+  lastreneweddate datetime,
   return varchar(4),
   renewals tinyint,
   timestamp timestamp NOT NULL DEFAULT current_timestamp,
-  issuedate date
+  issuedate datetime
 );
 
 CREATE INDEX issues_idx_borrowernumber ON issues (borrowernumber);
@@ -1357,6 +1357,7 @@ CREATE TABLE issuingrules (
   chargename varchar(100),
   maxissueqty integer,
   issuelength integer,
+  lengthunit varchar(10) DEFAULT 'days',
   hardduedate date,
   hardduedatecompare tinyint NOT NULL DEFAULT 0,
   renewalsallowed smallint NOT NULL DEFAULT 0,
@@ -1838,15 +1839,15 @@ DROP TABLE old_issues;
 CREATE TABLE old_issues (
   borrowernumber integer,
   itemnumber integer,
-  date_due date,
+  date_due datetime,
   branchcode varchar(10),
   issuingbranch varchar(18),
-  returndate date,
-  lastreneweddate date,
+  returndate datetime,
+  lastreneweddate datetime,
   return varchar(4),
   renewals tinyint,
   timestamp timestamp NOT NULL DEFAULT current_timestamp,
-  issuedate date
+  issuedate datetime
 );
 
 CREATE INDEX old_issues_idx_borrowernumber ON old_issues (borrowernumber);

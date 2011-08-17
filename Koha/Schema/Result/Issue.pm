@@ -24,13 +24,13 @@ __PACKAGE__->table("issues");
 
   data_type: 'integer'
   is_foreign_key: 1
-  is_nullable: 1
+  is_nullable: 0
 
 =head2 itemnumber
 
   data_type: 'integer'
   is_foreign_key: 1
-  is_nullable: 1
+  is_nullable: 0
 
 =head2 date_due
 
@@ -90,9 +90,9 @@ __PACKAGE__->table("issues");
 
 __PACKAGE__->add_columns(
   "borrowernumber",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "itemnumber",
-  { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
+  { data_type => "integer", is_foreign_key => 1, is_nullable => 0 },
   "date_due",
   { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
   "branchcode",
@@ -117,28 +117,9 @@ __PACKAGE__->add_columns(
   "issuedate",
   { data_type => "date", "datetime_undef_if_invalid" => 1, is_nullable => 1 },
 );
+__PACKAGE__->set_primary_key("itemnumber");
 
 =head1 RELATIONS
-
-=head2 borrowernumber
-
-Type: belongs_to
-
-Related object: L<Koha::Schema::Result::Borrower>
-
-=cut
-
-__PACKAGE__->belongs_to(
-  "borrowernumber",
-  "Koha::Schema::Result::Borrower",
-  { borrowernumber => "borrowernumber" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "CASCADE",
-    on_update     => "CASCADE",
-  },
-);
 
 =head2 itemnumber
 
@@ -152,17 +133,27 @@ __PACKAGE__->belongs_to(
   "itemnumber",
   "Koha::Schema::Result::Item",
   { itemnumber => "itemnumber" },
-  {
-    is_deferrable => 1,
-    join_type     => "LEFT",
-    on_delete     => "CASCADE",
-    on_update     => "CASCADE",
-  },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+=head2 borrowernumber
+
+Type: belongs_to
+
+Related object: L<Koha::Schema::Result::Borrower>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "borrowernumber",
+  "Koha::Schema::Result::Borrower",
+  { borrowernumber => "borrowernumber" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:I4Gsa7uGf9kEB5ec0gdOFg
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-08-17 13:14:26
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:DUH4nGgYEVUHGTp1+ODvPg
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

@@ -405,16 +405,16 @@ __PACKAGE__->might_have(
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
-=head2 issues
+=head2 issue
 
-Type: has_many
+Type: might_have
 
 Related object: L<Koha::Schema::Result::Issue>
 
 =cut
 
-__PACKAGE__->has_many(
-  "issues",
+__PACKAGE__->might_have(
+  "issue",
   "Koha::Schema::Result::Issue",
   { "foreign.itemnumber" => "self.itemnumber" },
   { cascade_copy => 0, cascade_delete => 0 },
@@ -536,8 +536,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-05-27 14:48:11
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:bs/F+WnuajCwP8xIghAbQQ
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-08-17 13:14:26
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:S4EQoO0LiAOY/kYLgLVydw
 
 
 # You can replace this text with custom content, and it will be preserved on regeneration

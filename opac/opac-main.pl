@@ -28,8 +28,7 @@ use C4::NewsChannels;    # get_opac_news
 use C4::Acquisition;     # GetRecentAcqui
 use C4::Languages qw(getTranslatedLanguages accept_language);
 
-my $input = new CGI;
-my $dbh   = C4::Context->dbh;
+my $input = CGI->new;
 
 my ( $template, $borrowernumber, $cookie ) = get_template_and_user(
     {

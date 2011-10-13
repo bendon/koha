@@ -164,7 +164,14 @@ foreach my $biblioNumber (@biblionumbers) {
 #
 if ( $query->param('place_reserve') ) {
     my $notes = $query->param('notes');
-	my $canreserve=0;
+    my $reserve_cnt;
+    if ( $MAXIMUM_NUMBER_OF_RESERVES ) {
+        my @res = GetReservesFromBorrowernumber( $borrowernumber );
+        $reserve_cnt = @res;
+    }
+    else {
+        $reserve_cnt = 0;
+    }
 
     # List is composed of alternating biblio/item/branch
     my $selectedItems = $query->param('selecteditems');
@@ -196,6 +203,8 @@ if ( $query->param('place_reserve') ) {
         my $biblioNum = shift(@selectedItems);
         my $itemNum   = shift(@selectedItems);
         my $branch    = shift(@selectedItems); # i.e., branch code, not name
+
+        my $canreserve = 0;
 
         my $singleBranchMode = $template->param('singleBranchMode');
         if ($singleBranchMode || ! $OPACChooseBranch) { # single branch mode or disabled user choosing
@@ -241,9 +250,24 @@ if ( $query->param('place_reserve') ) {
             $itemNum = undef;
         }
 
+        if (   $MAXIMUM_NUMBER_OF_RESERVES
+            && $reserve_cnt >= $MAXIMUM_NUMBER_OF_RESERVES )
+        {
+            $canreserve = 0;
+        }
+
         # Here we actually do the reserveration. Stage 3.
-        AddReserve($branch, $borrowernumber, $biblioNum, 'a', [$biblioNum], $rank, $startdate, $expiration_date, $notes,
-                   $biblioData->{'title'}, $itemNum, $found) if ($canreserve);
+        if ($canreserve) {
+            AddReserve(
+                $branch,      $borrowernumber,
+                $biblioNum,   'a',
+                [$biblioNum], $rank,
+                $startdate,   $expiration_date,
+                $notes,       $biblioData->{title},
+                $itemNum,     $found
+            );
+            ++$reserve_cnt;
+        }
     }
 
     print $query->redirect("/cgi-bin/koha/opac-user.pl#opac-user-holds");
@@ -264,21 +288,21 @@ if ( $borr->{'amountoutstanding'} && ($borr->{'amountoutstanding'} > $maxoutstan
     $noreserves = 1;
     $template->param( too_much_oweing => $amount );
 }
-if ( $borr->{gonenoaddress} && ($borr->{gonenoaddress} eq 1) ) {
+if ( $borr->{gonenoaddress} && ($borr->{gonenoaddress} == 1) ) {
     $noreserves = 1;
     $template->param(
                      message => 1,
                      GNA     => 1
                     );
 }
-if ( $borr->{lost} && ($borr->{lost} eq 1) ) {
+if ( $borr->{lost} && ($borr->{lost} == 1) ) {
     $noreserves = 1;
     $template->param(
                      message => 1,
                      lost    => 1
                     );
 }
-if ( $borr->{debarred} && ($borr->{debarred} eq 1) ) {
+if ( $borr->{debarred} && ($borr->{debarred} == 1) ) {
     $noreserves = 1;
     $template->param(
                      message  => 1,
@@ -405,7 +429,7 @@ foreach my $biblioNum (@biblionumbers) {
         my $ItemBorrowerReserveInfo = GetMemberDetails( $reservedfor, 0);
 
 	# the item could be reserved for this borrower vi a host record, flag this
-	if ($reservedfor eq $borrowernumber){
+	if ($reservedfor == $borrowernumber){
 		$itemLoopIter->{already_reserved} = 1;
 	}
 
